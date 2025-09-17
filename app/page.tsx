@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar';
 import HeroSliderWrapper from '../components/HeroSliderWrapper';
 import Banner from '../components/Banner';
 import Trends from '../components/Trends';
+import MonthlyFavorites from '../components/MonthlyFavorites';
 
 export default function HomePage() {
   return (
@@ -17,6 +18,9 @@ export default function HomePage() {
 
       {/* Trends */}
       <Trends />
+
+      {/* Monthly Favorites */}
+      <MonthlyFavorites />
 
       {/* Footer */}
       <footer className="bg-black border-t border-gray-900 text-white py-8">

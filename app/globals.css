@@ -139,5 +139,78 @@
     height: clamp(7rem, 10vw, 9rem);
     margin: 0 theme('spacing.banner-logo-divider');
   }
+
+  /* Monthly Favorites Design System Components */
+  .favorites-logo-container {
+    @apply absolute top-0 left-0 bg-white flex items-center justify-center;
+    @apply px-8 py-3;
+    width: theme('spacing.favorites-logo-width');
+    height: theme('spacing.favorites-logo-height');
+    clip-path: theme('clipPath.favorites-logo');
+    gap: theme('spacing.favorites-logo-gap');
+    z-index: theme('zIndex.favorites-logo');
+  }
+
+  .favorites-card {
+    @apply relative rounded-lg overflow-hidden bg-ink-900;
+    height: theme('spacing.favorites-card-height');
+  }
+
+  .favorites-card-cover {
+    @apply absolute top-4 w-32 lg:w-40 rounded-lg;
+    left: theme('spacing.favorites-card-offset');
+    bottom: 4rem;
+    z-index: theme('zIndex.favorites-cover');
+  }
+
+  .favorites-card-content {
+    @apply absolute inset-0 flex flex-col justify-center items-center text-center;
+    @apply pl-16;
+    z-index: theme('zIndex.favorites-content');
+  }
+
+  .favorites-ranking-badge {
+    @apply bg-ink-800 rounded-3xl py-1 px-3 mb-8;
+  }
+
+  .favorites-mask-container {
+    @apply absolute bottom-0 left-0 right-0 pointer-events-none;
+    @apply h-12 lg:h-16;
+    z-index: theme('zIndex.favorites-mask');
+  }
+
+  .favorites-mask-gradient {
+    @apply absolute bottom-0 left-0 right-0 h-full pointer-events-none;
+    background: linear-gradient(to bottom, transparent 0%, transparent 60%, #000000 100%);
+  }
+
+  .favorites-progress-bar {
+    @apply relative h-1 bg-gray-800 rounded-full overflow-hidden;
+    @apply mx-4 lg:mx-32;
+  }
+
+  .favorites-progress-fill {
+    @apply absolute top-0 left-0 h-full bg-brand-yellow rounded-full;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  /* Grid System for Monthly Favorites */
+  .favorites-grid {
+    @apply grid grid-cols-12 gap-8 mb-12 lg:mb-16 min-h-[300px] w-full px-0;
+  }
+
+  .favorites-left-section {
+    @apply col-span-12 lg:col-span-5 relative;
+    padding-left: clamp(0.5rem, 2vw, 1rem);
+  }
+
+  .favorites-right-section {
+    @apply col-span-12 lg:col-span-7 relative pr-0;
+  }
+
+  .favorites-title-container {
+    @apply absolute top-2/3 transform -translate-y-1/2;
+    left: clamp(0.5rem, 4vw, 4rem);
+  }
 }
 
