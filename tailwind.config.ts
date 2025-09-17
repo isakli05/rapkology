@@ -19,6 +19,7 @@ const config: Config = {
         ink: {
           700: '#3B3B3B',
           500: '#5C5C5C',
+          300: '#8B8B8B',
         },
       },
       spacing: {
