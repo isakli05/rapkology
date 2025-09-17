@@ -55,5 +55,89 @@
     top: 3px;
     left: 5px;
   }
+
+  /* Banner Twitch-themed Buttons - Design System Component */
+  .banner-button {
+    @apply relative inline-flex items-center justify-center gap-1 lg:gap-2;
+    @apply px-6 py-3 lg:px-8 lg:py-4 min-w-32 lg:min-w-40 min-h-12 lg:min-h-14;
+    @apply font-helvetica font-bold text-sm lg:text-base leading-none;
+    @apply border-2 cursor-pointer rounded-lg;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    
+    /* Font optimization */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* Primary Twitch Button - Follow */
+  .banner-button-primary {
+    @apply text-white border-purple-600 bg-purple-600;
+    @apply hover:bg-purple-700 hover:border-purple-700;
+    @apply focus:ring-purple-500;
+  }
+
+  .banner-button-primary:hover {
+    transform: translateZ(0) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(147, 51, 234, 0.4);
+  }
+
+  .banner-button-primary:active {
+    transform: translateZ(0) translateY(1px);
+  }
+
+  /* Secondary Twitch Button - Subscribe */
+  .banner-button-secondary {
+    @apply text-purple-600 border-purple-600 bg-transparent;
+    @apply hover:bg-purple-600 hover:text-white;
+    @apply focus:ring-purple-500;
+  }
+
+  .banner-button-secondary:hover {
+    transform: translateZ(0) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(147, 51, 234, 0.2);
+  }
+
+  .banner-button-secondary:active {
+    transform: translateZ(0) translateY(1px);
+  }
+
+  /* Dark Theme Button - Subscribe (Figma Design) */
+  .banner-button-dark {
+    @apply text-white border-ink-700 bg-ink-700;
+    @apply hover:bg-ink-500 hover:border-ink-500;
+    @apply focus:ring-ink-700;
+  }
+
+  .banner-button-dark:hover {
+    transform: translateZ(0) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 59, 59, 0.4);
+  }
+
+  .banner-button-dark:active {
+    transform: translateZ(0) translateY(1px);
+  }
+
+  .banner-button span {
+    @apply text-base lg:text-lg;
+  }
+
+  /* Banner Layout System - TypeScript Config Driven (Pragmatic) */
+
+  .banner-twitch-logo {
+    @apply w-auto;
+    height: clamp(5rem, 8vw, 12rem);
+    filter: theme('boxShadow.twitch-glow');
+  }
+
+  .banner-logo-divider {
+    @apply hidden lg:block w-px bg-ink-500 opacity-60;
+    height: clamp(7rem, 10vw, 9rem);
+    margin: 0 theme('spacing.banner-logo-divider');
+  }
 }
 

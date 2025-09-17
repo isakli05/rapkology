@@ -26,15 +26,21 @@ const config: Config = {
         'hero-gap': 'clamp(1rem, 4vw, 2rem)',
         'hero-gap-lg': 'clamp(1.5rem, 5vw, 3rem)',
         'hero-gap-xl': 'clamp(2rem, 6vw, 4rem)',
+        'banner-logo-divider': '2rem',
       },
       zIndex: {
         'nav': '50',
         'slider-content': '10',
         'slider-mask': '20', 
         'slider-pagination': '30',
+        'banner-cloud': '0',
+        'banner-people': '10',
+        'banner-content': '20',
+        'banner-mask': '50',
       },
       boxShadow: {
         'brand': '5.55px 5.55px 0px 0px #000000',
+        'twitch-glow': '0 4px 12px rgba(147, 51, 234, 0.3)',
       },
       clipPath: {
         'skew-button': 'polygon(0 5%, 100% 0%, 91% 100%, 7% 92%)',

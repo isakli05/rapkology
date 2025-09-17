@@ -78,5 +78,30 @@ Hero slider'da CSS Grid ile 12 kolonluk semantik layout sistemi kurduk. Bu yakla
 ### Responsive Content Positioning
 Grid sistem sayesinde mobilde content tam genişlik kaplarken, desktop'ta rapçi görselinin yanında belirli kolonlarda duruyor. Bu yaklaşım hem tasarım tutarlılığı hem de kod maintainability açısından çok etkili.
 
+## 🎯 Banner Component - Technical Case Study
+
+### Gerçek Dünya Problemi
+Banner bileşeninde Figma tasarımından responsive koda geçerken ilginç bir teknik zorlukla karşılaştım. Rapçi görsellerini yüzdelik değerlerle (`left: 60%`, `right: 50%`) konumlandırmak istedim ama Tailwind'in `theme()` fonksiyonu bu tür positioning değerlerini desteklemiyor.
+
+### Ne Denedim?
+İlk etapta CSS custom properties ile çözmeye çalıştım ama browser'da positioning conflict'leri yaşadım. Ardından Tailwind'in arbitrary values (`left-[60%]`) yaklaşımına baktım ama bu design system mantığına aykırıydı.
+
+### Pragmatik Çözüm
+Sonunda hibrit bir yaklaşım seçtim: TypeScript config ile centralized configuration + inline styles. Bu yaklaşım şu avantajları sağladı:
+
+**✅ Type Safety**: Banner'daki tüm değerler TypeScript interface ile korumalı  
+**✅ Maintainable**: Tüm positioning değerleri tek yerde, merkezi config'te  
+**✅ Performance**: Runtime CSS calculation yok, pure inline styles  
+**✅ Responsive**: Her değer responsive breakpoint'leri destekliyor  
+
+### Implementation Özeti
+Banner'ı şu şekilde architekt ettik:
+- **Config-Driven**: Tüm içerik, asset path'leri ve layout değerleri centralized configuration'da
+- **Hybrid Styling**: Tailwind classes + TypeScript-driven positioning  
+- **Layered Design**: Z-index hierarchy ile cloud, crowd, content ve mask layer'ları
+- **Performance Focus**: `priority` loading, `useCallback` handlers
+
+### Teknik Kararın Gerekçesi
+"Mükemmel Tailwind çözümü" yerine "çalışan, maintainable çözümü" tercih ettim. Bazen en iyi engineering decision, mevcut tool'un limitasyonlarını kabul edip pragmatik hybrid approach seçmektir. Bu yaklaşım future-proof çünkü gerekirse config'i kolayca CSS-in-JS'e migrate edebiliriz.
 ---
 
