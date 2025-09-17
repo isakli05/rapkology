@@ -59,5 +59,24 @@ fontFamily: {
 
 Bu yaklaşım sayesinde Google Fonts'u Next.js best practices'e uygun şekilde kullanarak hem performanslı hem de maintainable bir font sistemi kurguladım.
 
+## 🖼️ Image Optimization Stratejisi
+
+### Next.js Image Component Kullanımı
+Slider'da görseller için `next/image` component'ini tercih ettim çünkü normal `<img>` tag'ine göre büyük avantajları var. Otomatik olarak görselleri optimize ediyor, lazy loading yapıyor ve WebP gibi modern formatlara çeviriyor. Bu sayede sayfa yüklenme hızı ciddi şekilde artıyor.
+
+### Fill Attribute Mantığı
+Hero slider'da görsellerin container'ı tam kaplamasını istiyoruz. `fill` attribute'u görselin parent container'ını tamamen doldurmasını sağlıyor. Bu responsive tasarım için kritik çünkü farklı ekran boyutlarında görsel her zaman tam kapıyor.
+
+### Priority Loading Stratejisi
+İlk slide'da `priority={slide.id === 1}` kullanarak sadece ilk görselin prioriteli yüklenmesini sağladık. Bu şekilde kullanıcı sayfayı açtığında en önemli görsel hemen yüklenirken diğerleri arka planda lazy loading ile geliyor.
+
+## 📐 Content Grid Sistemi
+
+### Semantic Layout Yaklaşımı
+Hero slider'da CSS Grid ile 12 kolonluk semantik layout sistemi kurduk. Bu yaklaşım responsive tasarım için çok güçlü çünkü farklı ekran boyutlarında content'in hangi alanda durması gerektiğini net şekilde kontrol edebiliyoruz.
+
+### Responsive Content Positioning
+Grid sistem sayesinde mobilde content tam genişlik kaplarken, desktop'ta rapçi görselinin yanında belirli kolonlarda duruyor. Bu yaklaşım hem tasarım tutarlılığı hem de kod maintainability açısından çok etkili.
+
 ---
 

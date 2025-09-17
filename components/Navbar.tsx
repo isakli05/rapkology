@@ -16,7 +16,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-black/80 backdrop-blur-md border-b border-gray-800/50">
+    <nav className="fixed top-0 left-0 right-0 z-nav bg-black/50 backdrop-blur-nav border-b border-gray-800/50">
       <div className="container mx-auto px-4">
         <div className="flex items-center h-16 lg:h-20">
           {/* Logo */}
@@ -28,14 +28,13 @@ export default function Navbar() {
                 width={235}
                 height={59}
                 priority
-                className="h-8 lg:h-[48px] w-auto"
+                className="h-8 lg:h-12 w-auto"
               />
             </Link>
           </div>
 
-          {/* Desktop Navigation Links - Responsive spacing */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-6 xl:space-x-8 flex-1" 
-               style={{ marginLeft: 'clamp(2rem, 6vw, 6rem)' }}>
+          {/* Desktop Navigation Links - Design System Spacing */}
+          <div className="hidden lg:flex lg:items-center lg:space-x-hero-gap xl:space-x-hero-gap-lg flex-1 ml-nav-gap">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -65,7 +64,7 @@ export default function Navbar() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={4}
+                  strokeWidth={3}
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
@@ -74,7 +73,7 @@ export default function Navbar() {
             {/* Login Button */}
             <Link
               href="/giris"
-              className="font-saira font-bold text-sm leading-none text-center bg-white text-black hover:bg-brand-yellow hover:text-black transition-colors duration-200 flex items-center justify-center px-4 lg:px-6 py-2 lg:py-2.5 min-w-[100px] lg:min-w-[120px] whitespace-nowrap"
+              className="font-saira font-bold text-sm leading-none text-center bg-white text-black hover:bg-brand-yellow hover:text-black transition-colors duration-200 flex items-center justify-center px-4 lg:px-6 py-2 lg:py-2.5 min-w-28 lg:min-w-32 whitespace-nowrap"
             >
               GİRİŞ YAP
             </Link>
@@ -98,7 +97,7 @@ export default function Navbar() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={3}
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
@@ -144,7 +143,7 @@ export default function Navbar() {
               <div className="pt-4">
                 <Link
                   href="/giris"
-                  className="w-full font-saira font-bold text-sm leading-none text-center bg-white text-black hover:bg-brand-yellow hover:text-black transition-colors duration-200 flex items-center justify-center py-3 min-h-[48px]"
+                  className="w-full font-saira font-bold text-sm leading-none text-center bg-white text-black hover:bg-brand-yellow hover:text-black transition-colors duration-200 flex items-center justify-center py-3 min-h-12"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   GİRİŞ YAP

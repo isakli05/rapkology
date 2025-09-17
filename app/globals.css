@@ -2,3 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  /* CTA Button with Shadow - Design System Component */
+  .cta-button-container {
+    @apply relative;
+  }
+  
+  .cta-button-shadow {
+    @apply absolute w-36 h-12 bg-black transition-all duration-300 pointer-events-none;
+    top: 5.55px;
+    left: 15px;
+    clip-path: polygon(0 5%, 100% 0%, 91% 100%, 7% 92%);
+    z-index: -1;
+  }
+
+  .cta-button {
+    @apply relative z-10 inline-flex items-center justify-center;
+    @apply px-8 py-4 min-w-36 min-h-12;
+    @apply font-saira font-bold text-sm leading-none;
+    @apply text-black bg-brand-yellow;
+    @apply border-none cursor-pointer;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2;
+    
+    /* Custom clip path */
+    clip-path: polygon(0 5%, 100% 0%, 91% 100%, 7% 92%);
+    
+    /* Font optimization */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .cta-button:hover {
+    background-color: #e6d743; /* Slightly darker brand yellow */
+    transform: translateZ(0) translateY(-2px);
+  }
+
+  .cta-button:hover + .cta-button-shadow {
+    top: 7px;
+    left: 17px;
+  }
+
+  .cta-button:active {
+    transform: translateZ(0) translateY(1px);
+  }
+
+  .cta-button:active + .cta-button-shadow {
+    top: 3px;
+    left: 5px;
+  }
+}
+
