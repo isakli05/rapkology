@@ -573,5 +573,19 @@
   .view-control-btn--inactive {
     @apply text-white hover:text-brand-yellow;
   }
+
+  /* NewsDiscovery Diamond Background - Desktop Only, Senior Level Architecture */
+  .discovery-diamond-background {
+    @apply absolute pointer-events-none hidden lg:block;
+    width: 625.7px;
+    height: 681px;
+    left: -178.9px;
+    opacity: 1;
+    z-index: 1; /* Above background but below content */
+  }
+
+  .discovery-content-wrapper {
+    @apply relative z-discovery-content;
+  }
 }
 

@@ -74,6 +74,9 @@ const config: Config = {
         'news-content': '10',
         'news-tear': '20',
         'news-overlay': '15',
+        // NewsDiscovery Z-Index System
+        'discovery-diamond': '-10',
+        'discovery-content': '10',
       },
       boxShadow: {
         'brand': '5.55px 5.55px 0px 0px #000000',

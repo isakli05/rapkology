@@ -19,7 +19,7 @@ interface NewsItem {
   publishDate: string;
 }
 
-interface NewsKesfetConfig {
+interface NewsDiscoveryConfig {
   title: string;
   initialDisplayCount: number;
   loadMore: {
@@ -32,7 +32,7 @@ interface NewsKesfetConfig {
 }
 
 // Senior Level Configuration - Enterprise Pattern
-const newsKesfetConfig: NewsKesfetConfig = {
+const newsDiscoveryConfig: NewsDiscoveryConfig = {
   title: "KEŞFET",
   initialDisplayCount: 8, // 4 rows x 2 columns
   loadMore: {
@@ -42,13 +42,13 @@ const newsKesfetConfig: NewsKesfetConfig = {
     }
   },
   categories: [
-    "Tümü",
-    "Videolar", 
-    "Müzik",
+    "Yabancı Rap",
     "Türk Rap",
-    "Haftanın Videoları",
-    "Ayın Videoları",
-    "Rap Haberleri"
+    "Rap Haberleri", 
+    "Haftanın Klipleri",
+    "Ayın Klipleri",
+    "Rap Sohbetleri",
+    "Rap Müsabakaları"
   ]
 };
 
@@ -80,8 +80,8 @@ const transformMockDataToNews = (data: any[]): NewsItem[] => {
 
 type ViewMode = 'single' | 'double';
 
-export default function NewsKesfet() {
-  const [activeCategory, setActiveCategory] = useState<string>('Tümü');
+export default function NewsDiscovery() {
+  const [activeCategory, setActiveCategory] = useState<string>('Yabancı Rap');
   const [viewMode, setViewMode] = useState<ViewMode>('double');
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -92,32 +92,60 @@ export default function NewsKesfet() {
     return transformMockDataToNews(mockData);
   }, []);
 
-  // Senior Level Category Filtering - Real Implementation
+  // Senior Level Category Filtering - Fallback to All Content
   const filteredNews = useMemo(() => {
     let filtered = newsData;
 
-    // Category filtering - Professional implementation
-    if (activeCategory !== 'Tümü') {
-      filtered = newsData.filter(news => {
-        const originalItem = mockData.find(item => item._id === news.id);
-        if (!originalItem) return false;
+    // Category filtering with intelligent mapping to mock data
+    const categoryFiltered = newsData.filter(news => {
+      const originalItem = mockData.find(item => item._id === news.id);
+      if (!originalItem) return false;
 
-        const { category = [], tags = [] } = originalItem.attributes;
-        
-        // Check both category and tags arrays for matching content
-        const categoryMatches = category.some((cat: string) => 
-          cat.toLowerCase().includes(activeCategory.toLowerCase()) ||
-          activeCategory.toLowerCase().includes(cat.toLowerCase())
-        );
-        
-        const tagMatches = tags.some((tag: string) => 
-          tag.toLowerCase().includes(activeCategory.toLowerCase()) ||
-          activeCategory.toLowerCase().includes(tag.toLowerCase())
-        );
+      const { category = [], tags = [] } = originalItem.attributes;
+      const allContent = [...category, ...tags].join(' ').toLowerCase();
+      
+      // Intelligent category mapping
+      switch (activeCategory) {
+        case 'Yabancı Rap':
+          // Rap content but not specifically Turkish
+          return (allContent.includes('rap') || allContent.includes('hip-hop')) && 
+                 !allContent.includes('türk');
+                 
+        case 'Türk Rap':
+          // Turkish rap specific content
+          return allContent.includes('türk') && allContent.includes('rap');
+          
+        case 'Rap Haberleri':
+          // General rap news - broader rap content
+          return allContent.includes('rap') || allContent.includes('hip-hop');
+          
+        case 'Haftanın Klipleri':
+          // Weekly video content
+          return allContent.includes('hafta') && 
+                 (allContent.includes('video') || allContent.includes('klip'));
+                 
+        case 'Ayın Klipleri':
+          // Monthly video content  
+          return allContent.includes('ay') && 
+                 (allContent.includes('video') || allContent.includes('klip'));
+                 
+        case 'Rap Sohbetleri':
+          // Interview and conversation content
+          return allContent.includes('sohbet') || allContent.includes('röportaj') ||
+                 allContent.includes('konuşma') || allContent.includes('interview');
+                 
+        case 'Rap Müsabakaları':
+          // Competition and battle content
+          return allContent.includes('müsabaka') || allContent.includes('yarışma') ||
+                 allContent.includes('battle') || allContent.includes('competition');
+                 
+        default:
+          return true;
+      }
+    });
 
-        return categoryMatches || tagMatches;
-      });
-    }
+    // If no content found in category, show all content (Better UX)
+    filtered = categoryFiltered.length > 0 ? categoryFiltered : newsData;
 
     // Search filtering - Enhanced implementation
     if (searchQuery.trim()) {
@@ -144,7 +172,7 @@ export default function NewsKesfet() {
   const displayedNews = useMemo(() => {
     return showAllNews 
       ? filteredNews 
-      : filteredNews.slice(0, newsKesfetConfig.initialDisplayCount);
+      : filteredNews.slice(0, newsDiscoveryConfig.initialDisplayCount);
   }, [filteredNews, showAllNews]);
 
   // Event Handlers - Memoized to prevent re-renders
@@ -179,23 +207,37 @@ export default function NewsKesfet() {
   }, []);
 
   return (
-    <section className="relative w-full bg-black py-16 lg:py-24" role="region" aria-label="Keşfet bölümü">
-      <div className="container mx-auto px-4 lg:px-hero-gap-lg xl:px-hero-gap-xl">
+    <section className="relative w-full bg-black py-16 lg:py-24 overflow-hidden" role="region" aria-label="Keşfet bölümü">
+      {/* Diamond Background - Behind everything */}
+      <div className="discovery-diamond-background" aria-hidden="true">
+        <Image 
+          src="/icons/diamond.svg"
+          alt=""
+          fill
+          className="object-contain"
+          priority={false}
+        />
+      </div>
+
+      <div className="discovery-content-wrapper">
+        <div className="container mx-auto px-4 lg:px-hero-gap-lg xl:px-hero-gap-xl">
         
         {/* Header Section */}
         <div className="flex items-start justify-between mb-8 lg:mb-12">
-          {/* Title with Compass Icon */}
-          <h1 className="font-saira-condensed font-bold text-6xl lg:text-8xl leading-[0.89] text-white flex items-center gap-4">
-            {newsKesfetConfig.title}
-            <Image 
-              src="/icons/compass.svg"
-              alt=""
-              width={80}
-              height={80}
-              className="w-6 h-6 lg:w-20 lg:h-20"
-              aria-hidden="true"
-            />
-          </h1>
+          {/* Title with Compass and Diamond Icons */}
+          <div>
+            <h1 className="font-saira-condensed font-bold text-6xl lg:text-8xl leading-[0.89] text-white flex items-center gap-4 mb-4">
+              {newsDiscoveryConfig.title}
+              <Image 
+                src="/icons/compass.svg"
+                alt=""
+                width={80}
+                height={80}
+                className="w-6 h-6 lg:w-20 lg:h-20"
+                aria-hidden="true"
+              />
+            </h1>
+          </div>
 
           {/* View Controls */}
           <div className="flex items-center gap-3">
@@ -260,7 +302,7 @@ export default function NewsKesfet() {
 
         {/* Category Tabs */}
         <CategoryTabs
-          categories={newsKesfetConfig.categories}
+          categories={newsDiscoveryConfig.categories}
           activeCategory={activeCategory}
           onCategoryChange={handleCategoryChange}
         />
@@ -307,37 +349,30 @@ export default function NewsKesfet() {
             ))}
           </div>
         ) : (
-          // No Results State - Senior UX Pattern
+          // No Search Results - Only for search, not categories
           <div className="mb-12 lg:mb-16 text-center py-16">
             <div className="max-w-md mx-auto">
               <h3 className="font-saira-condensed font-bold text-2xl text-white mb-4">
-                İçerik Bulunamadı
+                Arama Sonucu Bulunamadı
               </h3>
               <p className="font-saira font-normal text-ink-400 mb-6">
-                {searchQuery ? (
-                  <>&quot;{searchQuery}&quot; araması için <strong>&quot;{activeCategory}&quot;</strong> kategorisinde sonuç bulunamadı.</>
-                ) : (
-                  <><strong>&quot;{activeCategory}&quot;</strong> kategorisinde henüz içerik bulunmuyor.</>
-                )}
+                &quot;{searchQuery}&quot; araması için sonuç bulunamadı.
               </p>
-              {(searchQuery || activeCategory !== 'Tümü') && (
-                <button
-                  onClick={() => {
-                    setActiveCategory('Tümü');
-                    setSearchQuery('');
-                    setShowSearch(false);
-                  }}
-                  className="font-saira font-normal text-sm text-brand-yellow hover:text-white transition-colors duration-200"
-                >
-                  Tüm İçerikleri Görüntüle
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setShowSearch(false);
+                }}
+                className="font-saira font-normal text-sm text-brand-yellow hover:text-white transition-colors duration-200"
+              >
+                Aramayı Temizle
+              </button>
             </div>
           </div>
         )}
 
-        {/* Load More Button - Only show if there are results and more to show */}
-        {displayedNews.length > 0 && filteredNews.length > newsKesfetConfig.initialDisplayCount && (
+        {/* Load More Button */}
+        {displayedNews.length > 0 && filteredNews.length > newsDiscoveryConfig.initialDisplayCount && (
           <div className="flex justify-center">
             <div className="cta-button-container">
               <button
@@ -345,9 +380,9 @@ export default function NewsKesfet() {
                 className="cta-button uppercase tracking-wide"
                 aria-expanded={showAllNews}
                 aria-controls="news-grid"
-                title={showAllNews ? newsKesfetConfig.loadMore.buttonText.hide : newsKesfetConfig.loadMore.buttonText.show}
+                title={showAllNews ? newsDiscoveryConfig.loadMore.buttonText.hide : newsDiscoveryConfig.loadMore.buttonText.show}
               >
-                {showAllNews ? newsKesfetConfig.loadMore.buttonText.hide : newsKesfetConfig.loadMore.buttonText.show}
+                {showAllNews ? newsDiscoveryConfig.loadMore.buttonText.hide : newsDiscoveryConfig.loadMore.buttonText.show}
               </button>
               
               {/* Shadow Element */}
@@ -356,6 +391,7 @@ export default function NewsKesfet() {
           </div>
         )}
 
+        </div>
       </div>
     </section>
   );

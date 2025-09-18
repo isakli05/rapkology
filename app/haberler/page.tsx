@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import SocialFooter from '@/components/SocialFooter';
 import NewsSlider from '@/components/NewsSlider';
-import NewsKesfet from '@/components/NewsKesfet';
+import NewsDiscovery from '@/components/NewsDiscovery';
 
 export const metadata: Metadata = {
   title: 'Haberler - Rapkology | Hip-Hop & Türk Rap Haberleri',
@@ -30,7 +30,7 @@ export default function HaberlerPage() {
       <NewsSlider />
       
       {/* News Discovery Section */}
-      <NewsKesfet />
+      <NewsDiscovery />
       
       {/* Footer */}
       <SocialFooter />
