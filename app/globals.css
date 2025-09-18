@@ -513,9 +513,10 @@
   }
 
   .category-tab {
-    @apply px-4 py-2 rounded-lg font-saira font-normal text-sm leading-none whitespace-nowrap;
+    @apply px-4 py-2 font-saira font-normal text-sm leading-none whitespace-nowrap;
     @apply border border-ink-500 transition-all duration-200;
     @apply focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black;
+    /* Sharp corners - no rounded */
   }
 
   .category-tab--active {
@@ -524,6 +525,53 @@
 
   .category-tab--inactive {
     @apply bg-transparent text-white border-ink-500 hover:border-ink-300 hover:text-ink-300;
+  }
+
+  /* News Card Design System - Figma Spec Implementation */
+  .news-card {
+    @apply relative cursor-pointer;
+  }
+
+  .news-card-image {
+    @apply relative aspect-video overflow-hidden mb-4;
+    /* Sharp corners - no rounded */
+  }
+
+  .news-card-date {
+    @apply font-saira font-normal text-news-date text-ink-400 mb-3;
+  }
+
+  .news-card-title {
+    @apply font-saira-condensed font-bold text-news-title text-white uppercase leading-none;
+    @apply transition-colors duration-200 line-clamp-3;
+  }
+
+  .news-card-title:hover {
+    @apply text-brand-yellow;
+  }
+
+  .news-card-separator {
+    @apply w-full h-px bg-ink-700 my-4;
+  }
+
+  .news-card-link {
+    @apply font-saira font-normal text-news-link text-white;
+    @apply hover:text-brand-yellow transition-colors duration-200;
+  }
+
+  /* View Control Buttons - Sharp Design System */
+  .view-control-btn {
+    @apply p-2 transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black;
+    /* Sharp corners - no rounded */
+  }
+
+  .view-control-btn--active {
+    @apply text-brand-yellow;
+  }
+
+  .view-control-btn--inactive {
+    @apply text-white hover:text-brand-yellow;
   }
 }
 

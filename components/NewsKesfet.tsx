@@ -166,11 +166,11 @@ export default function NewsKesfet() {
 
           {/* View Controls */}
           <div className="flex items-center gap-3">
-            {/* Search Toggle */}
+            {/* Search Toggle - Sharp Design System */}
             <button
               onClick={handleSearchToggle}
-              className={`p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black rounded-sm ${
-                showSearch ? 'text-brand-yellow' : 'text-white hover:text-brand-yellow'
+              className={`view-control-btn ${
+                showSearch ? 'view-control-btn--active' : 'view-control-btn--inactive'
               }`}
               aria-label={showSearch ? 'Aramayı kapat' : 'Arama yap'}
             >
@@ -187,11 +187,11 @@ export default function NewsKesfet() {
               )}
             </button>
 
-            {/* Single Column View */}
+            {/* Single Column View - Sharp Design System */}
             <button
               onClick={() => handleViewModeChange('single')}
-              className={`p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black rounded-sm ${
-                viewMode === 'single' ? 'text-brand-yellow' : 'text-white hover:text-brand-yellow'
+              className={`view-control-btn ${
+                viewMode === 'single' ? 'view-control-btn--active' : 'view-control-btn--inactive'
               }`}
               aria-label="Tek sütun görünümü"
               aria-pressed={viewMode === 'single'}
@@ -205,11 +205,11 @@ export default function NewsKesfet() {
               />
             </button>
 
-            {/* Double Column View */}
+            {/* Double Column View - Sharp Design System */}
             <button
               onClick={() => handleViewModeChange('double')}
-              className={`p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black rounded-sm ${
-                viewMode === 'double' ? 'text-brand-yellow' : 'text-white hover:text-brand-yellow'
+              className={`view-control-btn ${
+                viewMode === 'double' ? 'view-control-btn--active' : 'view-control-btn--inactive'
               }`}
               aria-label="Çift sütun görünümü"
               aria-pressed={viewMode === 'double'}

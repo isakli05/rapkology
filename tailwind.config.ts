@@ -31,6 +31,7 @@ const config: Config = {
           800: '#323232',
           700: '#3B3B3B',
           500: '#5C5C5C',
+          400: '#4A4A4A',
           300: '#8B8B8B',
         },
       },
@@ -90,6 +91,10 @@ const config: Config = {
         'news-fluid-base': ['clamp(1.125rem, 1.5vw, 1.5rem)', { lineHeight: '1.25' }],
         'news-fluid-lg': ['clamp(1.25rem, 2vw, 1.75rem)', { lineHeight: '1.2' }],
         'news-fluid-xl': ['clamp(1.5rem, 2.5vw, 2rem)', { lineHeight: '1.1' }],
+        // News Card Typography Design System - Figma Spec Responsive
+        'news-date': ['clamp(0.875rem, 1.2vw, 1rem)', { lineHeight: '1.2', letterSpacing: '0.015em' }],
+        'news-title': ['clamp(1.125rem, 1.5vw, 1.25rem)', { lineHeight: '1.04', letterSpacing: '0em' }],
+        'news-link': ['clamp(0.875rem, 1.2vw, 1rem)', { lineHeight: '1.2', letterSpacing: '0.015em' }],
       },
     },
   },

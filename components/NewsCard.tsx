@@ -22,10 +22,10 @@ interface NewsCardProps {
 // Senior Level NewsCard Component - Design System Pattern
 export default function NewsCard({ news, priority = false, viewMode = 'double' }: NewsCardProps) {
   return (
-    <article className="relative group cursor-pointer">
+    <article className="news-card group">
       {/* Author Info */}
       <div className="flex items-center gap-3 mb-4">
-        <div className="relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+        <div className="relative w-8 h-8 overflow-hidden flex-shrink-0">
           <Image
             src={news.author.avatar}
             alt={news.author.name}
@@ -39,8 +39,8 @@ export default function NewsCard({ news, priority = false, viewMode = 'double' }
         </span>
       </div>
 
-      {/* News Image */}
-      <div className="relative aspect-video overflow-hidden rounded-lg mb-4">
+      {/* News Image - Sharp Corners */}
+      <div className="news-card-image">
         <Image
           src={news.img}
           alt={news.title}
@@ -51,25 +51,26 @@ export default function NewsCard({ news, priority = false, viewMode = 'double' }
         />
       </div>
 
-      {/* Date Info */}
-      <div className="mb-3">
-        <span className="font-saira font-normal text-sm text-ink-400">
-          {news.publishDate}
-        </span>
+      {/* Date Info - Figma Spec Typography */}
+      <div className="news-card-date">
+        {news.publishDate}
       </div>
 
       {/* News Content */}
-      <div className="space-y-4">
-        {/* Title */}
-        <h3 className="font-saira-condensed font-bold text-base lg:text-lg leading-tight text-white line-clamp-3 group-hover:text-brand-yellow transition-colors duration-200">
+      <div>
+        {/* Title - Figma Spec Typography */}
+        <h3 className="news-card-title group-hover:text-brand-yellow">
           {news.title}
         </h3>
 
-        {/* Read More Link */}
+        {/* Separator Line */}
+        <div className="news-card-separator" aria-hidden="true"></div>
+
+        {/* Read More Link - Figma Spec Typography */}
         <div>
           <Link 
             href={`/haberler/${news.slug}`}
-            className="font-saira font-normal text-sm text-ink-300 hover:text-brand-yellow transition-colors duration-200"
+            className="news-card-link"
           >
             Daha Fazla Oku
           </Link>
