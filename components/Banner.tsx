@@ -155,6 +155,7 @@ export default function Banner() {
             className="object-cover w-full h-full"
             style={{ objectPosition: bannerConfig.layout.objectPosition.crowd }}
             priority={true}
+            sizes="100vw"
           />
         </div>
       </div>
@@ -181,6 +182,7 @@ export default function Banner() {
                   transform: `scale(${bannerConfig.layout.positioning.rapperLeft.scale})`
                 }}
                 priority={true}
+                sizes="(max-width: 1024px) 0vw, (max-width: 1280px) 256px, 320px"
               />
             </div>
           </div>
@@ -203,6 +205,7 @@ export default function Banner() {
                     height={128}
                     className="banner-twitch-logo"
                     priority={true}
+                    sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 256px"
                   />
                 </div>
                 
@@ -278,6 +281,7 @@ export default function Banner() {
                 fill
                 className="object-contain object-bottom"
                 priority={true}
+                sizes="(max-width: 1024px) 0vw, (max-width: 1280px) 256px, 320px"
               />
             </div>
           </div>
@@ -300,6 +304,7 @@ export default function Banner() {
           className="object-cover w-full h-full"
           style={{ objectPosition: bannerConfig.layout.objectPosition.mask }}
           priority={true}
+          sizes="100vw"
         />
       </div>
 

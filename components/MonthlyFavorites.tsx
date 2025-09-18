@@ -35,9 +35,9 @@ interface MonthlyFavoritesConfig {
   };
   swiper: {
     slidesPerView: {
-      mobile: number;
-      tablet: number;
-      desktop: number;
+      mobile: number | 'auto';
+      tablet: number | 'auto';
+      desktop: number | 'auto';
     };
     spaceBetween: {
       mobile: number;
@@ -86,14 +86,14 @@ const monthlyFavoritesConfig: MonthlyFavoritesConfig = {
   },
   swiper: {
     slidesPerView: {
-      mobile: 1.2,
-      tablet: 1.5,
-      desktop: 2.5
+      mobile: 'auto',
+      tablet: 'auto',
+      desktop: 'auto'
     },
     spaceBetween: {
-      mobile: 30,
-      tablet: 30,
-      desktop: 40
+      mobile: 12,
+      tablet: 16,
+      desktop: 18
     },
     autoplay: {
       delay: 6000,
@@ -235,8 +235,8 @@ export default function MonthlyFavorites() {
           </div>
 
           {/* Right Section - Swiper Container */}
-          <div className="favorites-right-section">
-            {/* Swiper Container - In 7 Column Area */}
+          <div className="favorites-right-section overflow-hidden">
+            {/* Swiper Container - Full width with overflow control */}
             <div className="relative h-full">
           
           <Swiper
@@ -267,6 +267,14 @@ export default function MonthlyFavorites() {
               <SwiperSlide 
                 key={favorite.id}
                 className="relative"
+                style={{
+                  width: '250px',
+                  maxWidth: '250px',  
+                  minWidth: '250px',
+                  flexShrink: 0,
+                  flexGrow: 0,
+                  flexBasis: '250px'
+                }}
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`${slideIndex + 1} / ${favoritesData.length}: ${favorite.artist} - ${favorite.album}`}
@@ -280,8 +288,8 @@ export default function MonthlyFavorites() {
                       src={favorite.coverImage}
                       alt={`${favorite.artist} - ${favorite.album} kapak görseli`}
                       fill
-                      className="object-contain rounded-lg"
-                      sizes="(max-width: 768px) 128px, 160px"
+                      className="object-cover"
+                      sizes="(max-width: 768px) 178px, 160px"
                       priority={slideIndex < 3}
                     />
                   </div>

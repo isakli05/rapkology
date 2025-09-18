@@ -3,6 +3,7 @@ import HeroSliderWrapper from '../components/HeroSliderWrapper';
 import Banner from '../components/Banner';
 import Trends from '../components/Trends';
 import MonthlyFavorites from '../components/MonthlyFavorites';
+import BlogDiscovery from '../components/BlogDiscovery';
 
 export default function HomePage() {
   return (
@@ -21,6 +22,9 @@ export default function HomePage() {
 
       {/* Monthly Favorites */}
       <MonthlyFavorites />
+
+      {/* Blog Discovery - Keşfet Section */}
+      <BlogDiscovery />
 
       {/* Footer */}
       <footer className="bg-black border-t border-gray-900 text-white py-8">

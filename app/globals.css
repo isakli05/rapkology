@@ -152,21 +152,94 @@
   }
 
   .favorites-card {
-    @apply relative rounded-lg overflow-hidden bg-ink-900;
-    height: theme('spacing.favorites-card-height');
+    @apply relative overflow-hidden bg-ink-900;
+    width: 250px !important;
+    height: clamp(256px, 20vw, 320px);
+    cursor: pointer;
   }
 
   .favorites-card-cover {
-    @apply absolute top-4 w-32 lg:w-40 rounded-lg;
-    left: theme('spacing.favorites-card-offset');
+    @apply absolute top-4 w-20 lg:w-28 rounded-lg;
+    left: -2.5rem;
     bottom: 4rem;
     z-index: theme('zIndex.favorites-cover');
+    transform: rotate(-12deg);
+    transform-origin: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 1024px) {
+    .favorites-card-cover {
+      left: -3rem; /* Desktop'ta daha fazla taşsın */
+    }
+  }
+  
+  .favorites-card:hover .favorites-card-cover {
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    width: 80px !important;   /* Mobile size - w-20 */
+    height: 80px !important;  /* Mobile size - kare */
+    transform: translate(-50%, -50%) rotate(0deg);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 50; /* En üstte olsun */
+  }
+  
+  @media (min-width: 1024px) {
+    .favorites-card:hover .favorites-card-cover {
+      width: 320px !important;  /* Desktop size - w-28 */
+      height: 320px !important; /* Desktop size - kare */
+    }
+  }
+  
+  .favorites-card:hover .favorites-card-content {
+    z-index: 5; /* Cover'ın altında olsun */
+  }
+  
+  /* Play Button Overlay */
+  .favorites-card::after {
+    content: '';
+    position: absolute;
+    width: 57px;
+    height: 57px;
+    background-image: url('/icons/play_button.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease; /* Normal durumda delay yok */
+    pointer-events: none;
+    z-index: 60;
+  }
+  
+  .favorites-card:hover::after {
+    opacity: 1;
+    transition: opacity 0.3s ease 0.1s; /* Hover'da delay var */
   }
 
   .favorites-card-content {
     @apply absolute inset-0 flex flex-col justify-center items-center text-center;
-    @apply pl-16;
+    @apply pl-10;
     z-index: theme('zIndex.favorites-content');
+  }
+
+  /* Hero Slider Navigation - Remove focus outline */
+  #hero-slider button {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  #hero-slider button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  #hero-slider button:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
   }
 
   .favorites-ranking-badge {
@@ -196,21 +269,138 @@
 
   /* Grid System for Monthly Favorites */
   .favorites-grid {
-    @apply grid grid-cols-12 gap-8 mb-12 lg:mb-16 min-h-[300px] w-full px-0;
+    @apply grid grid-cols-12 gap-8 mb-12 lg:mb-16 min-h-[300px] w-full;
   }
 
   .favorites-left-section {
     @apply col-span-12 lg:col-span-5 relative;
-    padding-left: clamp(0.5rem, 2vw, 1rem);
   }
 
   .favorites-right-section {
-    @apply col-span-12 lg:col-span-7 relative pr-0;
+    @apply col-span-12 lg:col-span-7 relative flex justify-end;
+  }
+  
+  /* Control Swiper visibility for 2.5 cards */
+  #monthly-favorites-swiper {
+    width: 661px;
+    flex-shrink: 0;
+  }
+
+  /* AGGRESSIVE SWIPER OVERRIDE - FORCE 250PX WIDTH */
+  #monthly-favorites-swiper .swiper-slide,
+  .swiper-container #monthly-favorites-swiper .swiper-slide,
+  [data-testid="monthly-favorites"] .swiper-slide {
+    width: 250px !important;
+    max-width: 250px !important; 
+    min-width: 250px !important;
+    flex-basis: 250px !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+  }
+  
+  #monthly-favorites-swiper .swiper-slide .favorites-card {
+    width: 250px !important;
+    max-width: 250px !important;
+    min-width: 250px !important;
   }
 
   .favorites-title-container {
-    @apply absolute top-2/3 transform -translate-y-1/2;
-    left: clamp(0.5rem, 4vw, 4rem);
+    @apply absolute top-2/3 transform -translate-y-1/2 translate-x-36;
+    left: 0;
+  }
+
+  /* Blog Discovery Components - Design System */
+  
+  /* Line clamp utilities for blog excerpts */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Blog card hover effects - Enhanced UX */
+  .blog-card-image {
+    @apply transition-transform duration-300 ease-out;
+    transform: scale(1);
+    will-change: transform;
+  }
+  
+  .blog-card-image:hover {
+    transform: scale(1.05);
+  }
+
+  /* Blog card content hover effects */
+  .blog-card-title {
+    @apply transition-colors duration-200 ease-out;
+    will-change: color;
+  }
+  
+  /* Category tags enhanced states */
+  .category-tag {
+    @apply relative overflow-hidden;
+  }
+  
+  .category-tag::before {
+    @apply absolute inset-0 bg-brand-yellow opacity-0 transition-opacity duration-200;
+    content: '';
+    z-index: -1;
+  }
+  
+  .category-tag:hover::before {
+    opacity: 1;
+  }
+
+  /* Newsletter form enhancement */
+  .newsletter-input-container {
+    @apply relative;
+  }
+  
+  .newsletter-input-container::after {
+    @apply absolute bottom-0 left-0 w-0 h-px bg-brand-yellow transition-all duration-300;
+    content: '';
+  }
+  
+  .newsletter-input-container:focus-within::after {
+    width: 100%;
+  }
+
+  /* Social footer link hover states */
+  .social-link {
+    @apply relative overflow-hidden;
+  }
+  
+  .social-link::before {
+    @apply absolute inset-0 bg-brand-yellow scale-0 transition-transform duration-300 rounded-full;
+    content: '';
+    z-index: -1;
+  }
+  
+  .social-link:hover::before {
+    transform: scale(1);
+  }
+
+  /* Sidebar Spacing - Professional Solution */
+  .sidebar-spacing > * + * {
+    margin-top: 3rem; /* 48px - equivalent to space-y-12 */
+  }
+
+  @media (min-width: 1024px) {
+    .sidebar-spacing > * + * {
+      margin-top: 10rem; /* 160px - equivalent to space-y-40 */
+    }
+    
+    /* Last child override - SocialFooter normal spacing */
+    .sidebar-spacing > *:last-child {
+      margin-top: 3rem; /* 48px - normal spacing for footer */
+    }
   }
 }
 

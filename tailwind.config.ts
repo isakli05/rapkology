@@ -7,6 +7,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: '0px',
+        screens: {
+          sm: '640px',
+          md: '768px',
+          lg: '1024px',
+          xl: '1610px',
+        },
+      },
       fontFamily: {
         'saira': ['var(--font-saira)'],
         'saira-condensed': ['var(--font-saira-condensed)'],
@@ -28,14 +38,16 @@ const config: Config = {
         'nav-gap': 'clamp(2rem, 6vw, 6rem)',
         'hero-gap': 'clamp(1rem, 4vw, 2rem)',
         'hero-gap-lg': 'clamp(1.5rem, 5vw, 3rem)',
-        'hero-gap-xl': 'clamp(2rem, 6vw, 4rem)',
+        'hero-gap-xl': 'clamp(0px, 0.05vw, 1px)',
         'banner-logo-divider': '2rem',
         // Monthly Favorites Design System
-        'favorites-logo-width': 'clamp(400px, 30vw, 500px)',
+        'favorites-logo-width': 'clamp(450px, 40vw, 600px)',
         'favorites-logo-height': 'clamp(80px, 6vw, 96px)',
         'favorites-logo-gap': 'clamp(1.5rem, 4vw, 2rem)',
-        'favorites-card-height': 'clamp(256px, 20vw, 320px)',
-        'favorites-card-offset': 'clamp(-1.5rem, -2vw, -2rem)',
+        // Removed - using direct CSS values now
+        // 'favorites-card-width': 'clamp(180px, 14vw, 240px)',
+        // 'favorites-card-height': 'clamp(256px, 20vw, 320px)',
+        // 'favorites-card-offset': 'clamp(-1.5rem, -2vw, -2rem)',
       },
       zIndex: {
         'nav': '50',
@@ -45,7 +57,7 @@ const config: Config = {
         'banner-cloud': '0',
         'banner-people': '10',
         'banner-content': '20',
-        'banner-mask': '50',
+        'banner-mask': '20',
         // Monthly Favorites Z-Index Layers
         'favorites-logo': '20',
         'favorites-cover': '10',

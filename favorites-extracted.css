@@ -1,0 +1,95 @@
+/* Extracted CSS
+ * Scope: section.Favorites__Styled-sc-1jsie9t-0 subtree
+ * Collected at: 2025-09-17T21:09:39.085Z
+ * Classes (30): Favorites__Styled-sc-1jsie9t-0, ihDaFR, fav-logos, youtube, spotify, Container__Styled-sc-jrvdus-0, caUMWs, fav-container, fav-title, swiper-area, swiper, swiper-initialized, swiper-horizontal, swiper-pointer-events, swiper-wrapper, swiper-slide, swiper-slide-duplicate, swiper-item, swiper-image, swiper-content, info, song, swiper-slide-duplicate-prev, swiper-slide-duplicate-active, swiper-slide-duplicate-next, swiper-slide-prev, swiper-slide-active, swiper-slide-next, swiper-scrollbar, progress-bar
+ */
+
+.swiper { margin-left: auto; margin-right: auto; position: relative; overflow: hidden; list-style: none; padding: 0px; z-index: 1; }
+.swiper-vertical > .swiper-wrapper { flex-direction: column; }
+.swiper-wrapper { position: relative; width: 100%; height: 100%; z-index: 1; display: flex; transition-property: transform; box-sizing: content-box; }
+.swiper-android .swiper-slide, .swiper-wrapper { transform: translateZ(0px); }
+.swiper-pointer-events { touch-action: pan-y; }
+.swiper-pointer-events.swiper-vertical { touch-action: pan-x; }
+.swiper-slide { flex-shrink: 0; width: 100%; height: 100%; position: relative; transition-property: transform; }
+.swiper-autoheight, .swiper-autoheight .swiper-slide { height: auto; }
+.swiper-autoheight .swiper-wrapper { align-items: flex-start; transition-property: transform, height; }
+.swiper-backface-hidden .swiper-slide { transform: translateZ(0px); backface-visibility: hidden; }
+.swiper-3d, .swiper-3d.swiper-css-mode .swiper-wrapper { perspective: 1200px; }
+.swiper-3d .swiper-cube-shadow, .swiper-3d .swiper-slide, .swiper-3d .swiper-slide-shadow, .swiper-3d .swiper-slide-shadow-bottom, .swiper-3d .swiper-slide-shadow-left, .swiper-3d .swiper-slide-shadow-right, .swiper-3d .swiper-slide-shadow-top, .swiper-3d .swiper-wrapper { transform-style: preserve-3d; }
+.swiper-css-mode > .swiper-wrapper { overflow: auto; scrollbar-width: none; }
+.swiper-css-mode > .swiper-wrapper::-webkit-scrollbar { display: none; }
+.swiper-css-mode > .swiper-wrapper > .swiper-slide { scroll-snap-align: start; }
+.swiper-horizontal.swiper-css-mode > .swiper-wrapper { scroll-snap-type: x mandatory; }
+.swiper-vertical.swiper-css-mode > .swiper-wrapper { scroll-snap-type: y mandatory; }
+.swiper-centered > .swiper-wrapper::before { content: ""; flex-shrink: 0; order: 9999; }
+.swiper-centered.swiper-horizontal > .swiper-wrapper > .swiper-slide:first-child { margin-inline-start: var(--swiper-centered-offset-before); }
+.swiper-centered.swiper-horizontal > .swiper-wrapper::before { height: 100%; min-height: 1px; width: var(--swiper-centered-offset-after); }
+.swiper-centered.swiper-vertical > .swiper-wrapper > .swiper-slide:first-child { margin-block-start: var(--swiper-centered-offset-before); }
+.swiper-centered.swiper-vertical > .swiper-wrapper::before { width: 100%; min-width: 1px; height: var(--swiper-centered-offset-after); }
+.swiper-centered > .swiper-wrapper > .swiper-slide { scroll-snap-align: center; scroll-snap-stop: always; }
+
+@media only screen and (min-width: 767.98px) {
+.caUMWs { width: calc(var(--10) * 128); max-width: calc(var(--10) * 128); margin-inline: auto; }
+} 
+@media only screen and (max-width: 767.98px) {
+.caUMWs { width: 90%; max-width: 90%; margin-inline: auto; }
+} 
+.ihDaFR { padding-block: calc(var(--10) * 10.9) calc(var(--10) * 8.8); }
+@media only screen and (min-width: 767.98px) {
+.ihDaFR { max-width: calc(var(--10) * 192); margin-inline: auto; }
+.ihDaFR .progress-bar { position: relative; width: 80%; height: var(--5); background-color: var(--gray); border-radius: var(--20); margin-top: var(--50); }
+.ihDaFR .progress-bar span { display: flex; height: 100%; width: calc(66.6667%); background-color: var(--yellow); border-radius: var(--20); transition: 0.2s ease-in-out; }
+.ihDaFR .fav-logos { position: absolute; left: 50%; top: 0px; width: calc(var(--10) * 60.2); aspect-ratio: 602 / 126; background-color: var(--white); transform: translateX(calc(var(--10) * -72.5)); display: flex; -webkit-box-align: center; align-items: center; padding-bottom: var(--20); gap: var(--36); padding-left: calc(var(--10) * 8.7); clip-path: polygon(90% 80%, 100% 0%, 0% 0%, 0% 100%); }
+.ihDaFR .fav-logos .youtube { position: relative; width: calc(var(--10) * 16.2); aspect-ratio: 162 / 36; background-image: url("/images/logos/youtube-dark.svg"); background-size: contain; background-repeat: no-repeat; background-position: center center; }
+.ihDaFR .fav-logos .youtube:hover { background-image: url("/images/logos/youtube-red.svg"); }
+.ihDaFR .fav-logos .spotify { position: relative; width: calc(var(--10) * 16); aspect-ratio: 160 / 48; filter: brightness(0); }
+.ihDaFR .fav-logos .spotify img { object-fit: contain !important; }
+.ihDaFR .fav-logos .spotify:hover { filter: brightness(1); }
+.ihDaFR .fav-container { overflow: visible; display: flex; -webkit-box-pack: justify; justify-content: space-between; -webkit-box-align: center; align-items: center; }
+.ihDaFR .swiper-area { height: calc(var(--10) * 27.2); }
+.ihDaFR .swiper { width: calc(var(--10) * 80); position: absolute; right: 0px; cursor: grab; }
+.ihDaFR .fav-title { width: calc(var(--10) * 34); -webkit-box-align: center; align-items: center; }
+.ihDaFR .fav-title h2 { font-weight: 700; }
+.ihDaFR .swiper-item { position: relative; overflow: hidden; aspect-ratio: 272 / 276; background-image: url("/images/favs/bg.svg"); background-size: cover; background-position: center bottom; padding-inline: var(--100) var(--20); padding-bottom: var(--50); text-align: center; display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; }
+.ihDaFR .swiper-item img { object-fit: cover; }
+.ihDaFR .swiper-item .swiper-content { transition: 0.3s ease-in-out; }
+.ihDaFR .swiper-item .swiper-content .info { padding: var(--5) var(--20); background-color: rgb(56, 56, 56); border-radius: var(--64); margin-bottom: var(--20); }
+.ihDaFR .swiper-item .swiper-content .info span { font-weight: 700; }
+.ihDaFR .swiper-item .swiper-content .song { text-transform: uppercase; }
+.ihDaFR .swiper-item .swiper-content .song h5 { font-size: var(--20); font-family: Saira; font-weight: 400; }
+.ihDaFR .swiper-item .swiper-content .song h6 { font-size: var(--20); font-family: Saira; font-weight: 700; }
+.ihDaFR .swiper-item .swiper-image { z-index: 1; position: absolute; width: calc(var(--10) * 18.4); aspect-ratio: 1 / 1; top: 50%; left: 50%; transform: translate(-150%, -50%) rotate(-10deg); transition: 0.3s ease-in-out; }
+.ihDaFR .swiper-item .swiper-image::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: var(--56); aspect-ratio: 1 / 1; background-image: url("/images/icons/play.svg"); background-repeat: no-repeat; background-size: contain; }
+.ihDaFR .swiper-item:hover .swiper-image { z-index: 1; position: absolute; width: calc(var(--10) * 18.4); aspect-ratio: 1 / 1; top: 50%; left: 50%; transform: translate(-50%, -60%); }
+.ihDaFR .swiper-item:hover .swiper-content { opacity: 0; }
+} 
+@media only screen and (max-width: 767.98px) {
+.ihDaFR { padding-block: calc(var(--dsm-10) * 13.4) calc(var(--dsm-10) * 6.6); }
+.ihDaFR .progress-bar { position: relative; width: 100%; height: 5px; background-color: var(--gray); border-radius: var(--20); margin-top: 20px; }
+.ihDaFR .progress-bar span { display: flex; height: 100%; width: calc(33.3333%); background-color: var(--yellow); border-radius: var(--20); transition: 0.2s ease-in-out; }
+.ihDaFR .fav-logos { position: absolute; left: 0%; top: 0px; width: calc(var(--dsm-10) * 37.6); aspect-ratio: 602 / 126; background-color: var(--white); display: flex; -webkit-box-align: center; align-items: center; padding-bottom: var(--20); gap: var(--36); padding-left: calc(var(--10) * 8.7); clip-path: polygon(90% 80%, 100% 0%, 0% 0%, 0% 100%); }
+.ihDaFR .fav-logos .youtube { position: relative; width: calc(var(--dsm-10) * 13.3); aspect-ratio: 162 / 36; background-image: url("/images/logos/youtube-dark.svg"); background-size: contain; background-repeat: no-repeat; background-position: center center; }
+.ihDaFR .fav-logos .spotify { position: relative; width: calc(var(--dsm-10) * 11.1); aspect-ratio: 160 / 48; filter: brightness(0); }
+.ihDaFR .fav-logos .spotify:hover { filter: brightness(1); }
+.ihDaFR .fav-container { overflow: visible; }
+.ihDaFR .fav-title { -webkit-box-align: center; align-items: center; text-align: center; margin-inline: auto; margin-bottom: calc(var(--dsm-10) * 4.6); }
+.ihDaFR .fav-title h2 { font-weight: 700; }
+.ihDaFR .swiper-item { position: relative; overflow: hidden; aspect-ratio: 272 / 380; background-image: url("/images/favs/bg-mobile.svg"); background-size: cover; background-position: center bottom; padding-bottom: calc(var(--dsm-10) * 8.6); text-align: center; display: flex; flex-direction: column; -webkit-box-align: center; align-items: center; -webkit-box-pack: end; justify-content: flex-end; gap: calc(var(--dsm-10) * 2.5); }
+.ihDaFR .swiper-item img { object-fit: cover; }
+.ihDaFR .swiper-item .swiper-content { transition: 0.3s ease-in-out; }
+.ihDaFR .swiper-item .swiper-content .info { padding: calc(var(--dsm-10) * 0.5) calc(var(--dsm-10) * 1); background-color: rgb(56, 56, 56); border-radius: calc(var(--dsm-10) * 8.6); margin-bottom: var(--20); }
+.ihDaFR .swiper-item .swiper-content .info span { font-weight: 700; }
+.ihDaFR .swiper-item .swiper-content .song { text-transform: uppercase; display: flex; gap: calc(var(--dsm-10) * 0.5); flex-wrap: wrap; }
+.ihDaFR .swiper-item .swiper-content .song h5 { font-size: calc(var(--dsm-10) * 2); font-family: Saira; font-weight: 400; }
+.ihDaFR .swiper-item .swiper-content .song h6 { font-size: calc(var(--dsm-10) * 2); font-family: Saira; font-weight: 700; }
+.ihDaFR .swiper-item .swiper-content .song h6::before { content: "- "; }
+.ihDaFR .swiper-item .swiper-image { z-index: 1; position: relative; width: calc(var(--dsm-10) * 15.95); aspect-ratio: 1 / 1; transform: rotate(-10deg); transition: 0.3s ease-in-out; }
+.ihDaFR .swiper-item .swiper-image::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: calc(var(--dsm-10) * 4.8); aspect-ratio: 1 / 1; background-image: url("/images/icons/play.svg"); background-repeat: no-repeat; background-size: contain; }
+.ihDaFR .swiper-item:hover .swiper-image { transform: rotate(0deg); }
+} 
+@media only screen and (min-width: 767.98px) {
+.bNjmTP .swiper { width: calc(var(--10) * 73.8); }
+} 
+@media only screen and (max-width: 767.98px) {
+.bNjmTP .swiper { width: 100%; padding-bottom: calc(var(--dsm-10) * 1.6); }
+} 
