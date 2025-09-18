@@ -42,13 +42,13 @@ const newsKesfetConfig: NewsKesfetConfig = {
     }
   },
   categories: [
-    "Yabancı Rap",
+    "Tümü",
+    "Videolar", 
+    "Müzik",
     "Türk Rap",
-    "Rap Haberleri", 
-    "Haftanın Klipleri",
-    "Ayın Klipleri",
-    "Rap Sohbetleri",
-    "Rap Müsabakaları"
+    "Haftanın Videoları",
+    "Ayın Videoları",
+    "Rap Haberleri"
   ]
 };
 
@@ -81,7 +81,7 @@ const transformMockDataToNews = (data: any[]): NewsItem[] => {
 type ViewMode = 'single' | 'double';
 
 export default function NewsKesfet() {
-  const [activeCategory, setActiveCategory] = useState<string>('Yabancı Rap');
+  const [activeCategory, setActiveCategory] = useState<string>('Tümü');
   const [viewMode, setViewMode] = useState<ViewMode>('double');
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -92,23 +92,49 @@ export default function NewsKesfet() {
     return transformMockDataToNews(mockData);
   }, []);
 
-  // Filtered news based on category and search
+  // Senior Level Category Filtering - Real Implementation
   const filteredNews = useMemo(() => {
     let filtered = newsData;
 
-    // Category filtering - simplified for demo
-    // In real app, you'd filter by actual categories from mock data
-    if (activeCategory !== 'Yabancı Rap') {
-      // For demo, showing all data regardless of category
-      filtered = newsData;
+    // Category filtering - Professional implementation
+    if (activeCategory !== 'Tümü') {
+      filtered = newsData.filter(news => {
+        const originalItem = mockData.find(item => item._id === news.id);
+        if (!originalItem) return false;
+
+        const { category = [], tags = [] } = originalItem.attributes;
+        
+        // Check both category and tags arrays for matching content
+        const categoryMatches = category.some((cat: string) => 
+          cat.toLowerCase().includes(activeCategory.toLowerCase()) ||
+          activeCategory.toLowerCase().includes(cat.toLowerCase())
+        );
+        
+        const tagMatches = tags.some((tag: string) => 
+          tag.toLowerCase().includes(activeCategory.toLowerCase()) ||
+          activeCategory.toLowerCase().includes(tag.toLowerCase())
+        );
+
+        return categoryMatches || tagMatches;
+      });
     }
 
-    // Search filtering
+    // Search filtering - Enhanced implementation
     if (searchQuery.trim()) {
-      filtered = filtered.filter(news =>
-        news.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        news.author.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(news => {
+        const titleMatch = news.title.toLowerCase().includes(query);
+        const authorMatch = news.author.name.toLowerCase().includes(query);
+        
+        // Also search in original mock data for content and tags
+        const originalItem = mockData.find(item => item._id === news.id);
+        const contentMatch = originalItem?.attributes.content?.toLowerCase().includes(query) || false;
+        const tagMatch = originalItem?.attributes.tags?.some((tag: string) => 
+          tag.toLowerCase().includes(query)
+        ) || false;
+
+        return titleMatch || authorMatch || contentMatch || tagMatch;
+      });
     }
 
     return filtered;
@@ -124,7 +150,14 @@ export default function NewsKesfet() {
   // Event Handlers - Memoized to prevent re-renders
   const handleCategoryChange = useCallback((category: string) => {
     setActiveCategory(category);
-  }, []);
+    // Reset pagination when category changes - UX Best Practice
+    setShowAllNews(false);
+    // Close search if open - Clean UX
+    if (showSearch) {
+      setShowSearch(false);
+      setSearchQuery('');
+    }
+  }, [showSearch]);
 
   const handleViewModeChange = useCallback((mode: ViewMode) => {
     setViewMode(mode);
@@ -254,27 +287,57 @@ export default function NewsKesfet() {
         )}
 
         {/* News Grid */}
-        <div 
-          className={`mb-12 lg:mb-16 ${
-            viewMode === 'double' 
-              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" 
-              : "space-y-8 lg:space-y-12"
-          }`}
-          role="feed"
-          aria-label={`${displayedNews.length} haber gösteriliyor`}
-        >
-          {displayedNews.map((news, index) => (
-            <NewsCard
-              key={news.id}
-              news={news}
-              priority={index < 4} // First 4 items priority loading
-              viewMode={viewMode}
-            />
-          ))}
-        </div>
+        {displayedNews.length > 0 ? (
+          <div 
+            className={`mb-12 lg:mb-16 ${
+              viewMode === 'double' 
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" 
+                : "space-y-8 lg:space-y-12"
+            }`}
+            role="feed"
+            aria-label={`${displayedNews.length} haber gösteriliyor, ${activeCategory} kategorisinde ${filteredNews.length} toplam haber`}
+          >
+            {displayedNews.map((news, index) => (
+              <NewsCard
+                key={news.id}
+                news={news}
+                priority={index < 4} // First 4 items priority loading
+                viewMode={viewMode}
+              />
+            ))}
+          </div>
+        ) : (
+          // No Results State - Senior UX Pattern
+          <div className="mb-12 lg:mb-16 text-center py-16">
+            <div className="max-w-md mx-auto">
+              <h3 className="font-saira-condensed font-bold text-2xl text-white mb-4">
+                İçerik Bulunamadı
+              </h3>
+              <p className="font-saira font-normal text-ink-400 mb-6">
+                {searchQuery ? (
+                  <>&quot;{searchQuery}&quot; araması için <strong>&quot;{activeCategory}&quot;</strong> kategorisinde sonuç bulunamadı.</>
+                ) : (
+                  <><strong>&quot;{activeCategory}&quot;</strong> kategorisinde henüz içerik bulunmuyor.</>
+                )}
+              </p>
+              {(searchQuery || activeCategory !== 'Tümü') && (
+                <button
+                  onClick={() => {
+                    setActiveCategory('Tümü');
+                    setSearchQuery('');
+                    setShowSearch(false);
+                  }}
+                  className="font-saira font-normal text-sm text-brand-yellow hover:text-white transition-colors duration-200"
+                >
+                  Tüm İçerikleri Görüntüle
+                </button>
+              )}
+            </div>
+          </div>
+        )}
 
-        {/* Load More Button */}
-        {filteredNews.length > newsKesfetConfig.initialDisplayCount && (
+        {/* Load More Button - Only show if there are results and more to show */}
+        {displayedNews.length > 0 && filteredNews.length > newsKesfetConfig.initialDisplayCount && (
           <div className="flex justify-center">
             <div className="cta-button-container">
               <button
