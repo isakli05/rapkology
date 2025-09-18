@@ -1,0 +1,39 @@
+'use client';
+
+import { useCallback } from 'react';
+
+interface CategoryTabsProps {
+  categories: string[];
+  activeCategory: string;
+  onCategoryChange: (category: string) => void;
+}
+
+// Senior Level CategoryTabs - Horizontal Filter Design System
+export default function CategoryTabs({ categories, activeCategory, onCategoryChange }: CategoryTabsProps) {
+  
+  const handleCategoryClick = useCallback((category: string) => {
+    onCategoryChange(category);
+  }, [onCategoryChange]);
+
+  return (
+    <div className="category-tabs-container mb-8 lg:mb-12">
+      <div className="flex flex-wrap gap-3 lg:gap-4">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => handleCategoryClick(category)}
+            className={`category-tab ${
+              activeCategory === category
+                ? 'category-tab--active'
+                : 'category-tab--inactive'
+            }`}
+            aria-pressed={activeCategory === category}
+            aria-label={`${category} kategorisini seç`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -506,5 +506,24 @@
   .navbar-solid {
     @apply bg-black border-b border-gray-800;
   }
+
+  /* Category Tabs - Horizontal Filter System */
+  .category-tabs-container {
+    @apply w-full overflow-x-auto;
+  }
+
+  .category-tab {
+    @apply px-4 py-2 rounded-lg font-saira font-normal text-sm leading-none whitespace-nowrap;
+    @apply border border-ink-500 transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black;
+  }
+
+  .category-tab--active {
+    @apply bg-brand-yellow text-black border-brand-yellow;
+  }
+
+  .category-tab--inactive {
+    @apply bg-transparent text-white border-ink-500 hover:border-ink-300 hover:text-ink-300;
+  }
 }
 
