@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   { href: '/haberler', label: 'HABERLER' },
@@ -14,9 +15,13 @@ const navLinks = [
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Senior Level Pattern - Route-based Styling
+  const navbarVariant = pathname === '/' ? 'navbar-glassmorphism' : 'navbar-solid';
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-nav bg-black/50 backdrop-blur-nav border-b border-gray-800/50">
+    <nav className={`fixed top-0 left-0 right-0 z-nav ${navbarVariant}`}>
       <div className="container mx-auto px-4 lg:px-hero-gap-lg xl:px-hero-gap-xl">
         <div className="flex items-center h-16 lg:h-20">
           {/* Logo */}

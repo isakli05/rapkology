@@ -402,5 +402,109 @@
       margin-top: 3rem; /* 48px - normal spacing for footer */
     }
   }
+
+  /* News Slider Design System Components - Senior Level Architecture */
+  .news-featured-card {
+    @apply relative w-full h-full overflow-hidden cursor-pointer;
+  }
+
+  .news-featured-image {
+    @apply relative w-full h-full;
+  }
+
+  .news-featured-overlay {
+    @apply absolute inset-0 bg-black/30;
+  }
+
+  .news-featured-content {
+    @apply absolute inset-0 flex items-end;
+    padding: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .news-featured-layout {
+    @apply w-full flex items-end justify-between;
+  }
+
+  .news-featured-title {
+    @apply font-saira-condensed font-bold leading-tight text-white drop-shadow-lg max-w-lg;
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .news-play-button {
+    @apply flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20;
+  }
+
+  .news-side-card {
+    @apply flex cursor-pointer gap-news-card-gap;
+  }
+
+  .news-side-image {
+    @apply relative flex-shrink-0 overflow-hidden rounded-lg;
+    width: clamp(11rem, 14vw, 13rem);
+    height: clamp(7rem, 9vw, 8rem);
+  }
+
+  .news-side-content {
+    @apply flex-1 min-w-0 flex items-center;
+  }
+
+  .news-side-title {
+    @apply font-saira-condensed font-bold leading-tight text-ink-700 line-clamp-3 text-news-fluid-base;
+  }
+
+  .news-description {
+    @apply font-saira-condensed font-bold leading-tight text-ink-700 line-clamp-3 text-news-fluid-base h-news-description-height;
+  }
+
+  .news-pagination-layout {
+    @apply flex flex-col lg:flex-row lg:items-center lg:justify-between gap-news-section-gap mt-news-section-gap;
+  }
+
+  .news-pagination-dots {
+    @apply flex justify-center lg:justify-end flex-shrink-0 gap-2;
+  }
+
+  .news-pagination-dot {
+    @apply rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-ink-700 focus:ring-offset-2 focus:ring-offset-brand-yellow;
+  }
+
+  .news-pagination-dot--active {
+    @apply w-4 h-4 bg-ink-700;
+  }
+
+  .news-pagination-dot--inactive {
+    @apply w-3 h-3 bg-ink-500 hover:bg-ink-700;
+  }
+
+  /* News Background Layers */
+  .news-background-layer {
+    @apply absolute inset-0 w-full h-full pointer-events-none z-news-backgrounds;
+  }
+
+  .news-shape-png {
+    @apply opacity-30 mix-blend-multiply;
+  }
+
+  .news-shape-svg {
+    @apply opacity-20;
+  }
+
+  .news-tear-effect {
+    @apply absolute left-0 right-0 pointer-events-none w-full h-auto z-news-tear;
+    bottom: -2.5rem; /* -40px equivalent for tear offset */
+  }
+
+  .news-content-container {
+    @apply relative z-news-content;
+  }
+
+  /* Navbar Variants - Senior Level Architecture */
+  .navbar-glassmorphism {
+    @apply bg-black/50 backdrop-blur-nav border-b border-gray-800/50;
+  }
+
+  .navbar-solid {
+    @apply bg-black border-b border-gray-800;
+  }
 }
 
