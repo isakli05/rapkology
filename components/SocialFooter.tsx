@@ -16,6 +16,13 @@ interface FooterLink {
   id: string;
   label: string;
   href: string;
+  disabled: boolean;
+}
+
+type SocialFooterVariant = 'homepage' | 'blog';
+
+interface SocialFooterProps {
+  variant?: SocialFooterVariant;
 }
 
 interface SocialFooterConfig {
@@ -23,7 +30,11 @@ interface SocialFooterConfig {
   footerLinks: FooterLink[];
   layout: {
     container: string;
-    socialGrid: string;
+    socialGrid: {
+      base: string;
+      homepage: string;
+      blog: string;
+    };
     footerGrid: string;
     spacing: string;
   };
@@ -51,6 +62,14 @@ interface SocialFooterConfig {
   };
   content: {
     copyright: string;
+  };
+  variants: {
+    homepage: {
+      description: string;
+    };
+    blog: {
+      description: string;
+    };
   };
 }
 
@@ -97,34 +116,43 @@ const socialFooterConfig: SocialFooterConfig = {
     {
       id: 'haberler',
       label: 'HABERLER',
-      href: '/haberler'
+      href: '/haberler',
+      disabled: false
     },
     {
       id: 'etkinlikler',
       label: 'ETKİNLİKLER',
-      href: '/etkinlikler'
+      href: '/etkinlikler',
+      disabled: true
     },
     {
       id: 'muzikler',
       label: 'MÜZİKLER',
-      href: '/muzikler'
+      href: '/muzikler',
+      disabled: true
     },
     {
       id: 'videolar',
       label: 'VİDEOLAR',
-      href: '/videolar'
+      href: '/videolar',
+      disabled: true
     },
     {
       id: 'iletisim',
       label: 'İLETİŞİM',
-      href: '/iletisim'
+      href: '/iletisim',
+      disabled: true
     }
   ],
   layout: {
-    container: "space-y-8",
-    socialGrid: "flex items-center justify-start gap-4",
+    container: "space-y-6", // Reduced from space-y-8
+    socialGrid: {
+      base: "flex items-center justify-start gap-4 -ml-4",
+      homepage: "mb-8 lg:mb-16", // Homepage specific spacing
+      blog: "" // No extra spacing for blog pages
+    },
     footerGrid: "flex flex-wrap gap-x-6 gap-y-3",
-    spacing: "py-6 border-t border-ink-700"
+    spacing: "py-4" // Reduced from py-6 for tighter copyright spacing
   },
   typography: {
     copyright: "font-saira font-normal text-sm leading-none text-ink-500",
@@ -149,11 +177,19 @@ const socialFooterConfig: SocialFooterConfig = {
     externalLinkLabel: (name: string) => `${name} - yeni sekmede açılır`
   },
   content: {
-    copyright: "© RAPKOLOGY All Rights Are Reserved 2024."
+    copyright: "© RAPKOLOGY All Rights Are Reserved 2025."
+  },
+  variants: {
+    homepage: {
+      description: "Ana sayfa footer - sosyal medya linkleri ile alt boşluk"
+    },
+    blog: {
+      description: "Blog footer - sosyal medya linkleri compact layout"
+    }
   }
 };
 
-export default function SocialFooter() {
+export default function SocialFooter({ variant = 'homepage' }: SocialFooterProps) {
 
   // Performance: Memoized handlers
   const handleSocialClick = useCallback((socialLink: SocialLink) => {
@@ -166,6 +202,13 @@ export default function SocialFooter() {
     console.log(`Footer link clicked: ${footerLink.label}`);
   }, []);
 
+  // Variant-based styling - Enterprise Pattern
+  const getSocialGridClassName = useCallback(() => {
+    const baseClasses = socialFooterConfig.layout.socialGrid.base;
+    const variantClasses = socialFooterConfig.layout.socialGrid[variant];
+    return `${baseClasses} ${variantClasses}`;
+  }, [variant]);
+
   return (
     <section 
       className={socialFooterConfig.layout.container}
@@ -175,7 +218,7 @@ export default function SocialFooter() {
       
       {/* Social Media Links */}
       <div 
-        className={socialFooterConfig.layout.socialGrid}
+        className={getSocialGridClassName()}
         role="group"
         aria-label={socialFooterConfig.accessibility.socialLabel}
       >
@@ -217,19 +260,31 @@ export default function SocialFooter() {
         aria-label={socialFooterConfig.accessibility.footerLabel}
       >
         {socialFooterConfig.footerLinks.map((link) => (
-          <Link
-            key={link.id}
-            href={link.href}
-            onClick={() => handleFooterLinkClick(link)}
-            className={`
-              ${socialFooterConfig.typography.footerLink}
-              ${socialFooterConfig.interactions.footerLink.base}
-              ${socialFooterConfig.interactions.footerLink.hover}
-              ${socialFooterConfig.interactions.transition}
-            `}
-          >
-            {link.label}
-          </Link>
+          link.disabled ? (
+            <span
+              key={link.id}
+              className={`
+                ${socialFooterConfig.typography.footerLink}
+                text-ink-500 cursor-default
+              `}
+            >
+              {link.label}
+            </span>
+          ) : (
+            <Link
+              key={link.id}
+              href={link.href}
+              onClick={() => handleFooterLinkClick(link)}
+              className={`
+                ${socialFooterConfig.typography.footerLink}
+                ${socialFooterConfig.interactions.footerLink.base}
+                ${socialFooterConfig.interactions.footerLink.hover}
+                ${socialFooterConfig.interactions.transition}
+              `}
+            >
+              {link.label}
+            </Link>
+          )
         ))}
       </nav>
 

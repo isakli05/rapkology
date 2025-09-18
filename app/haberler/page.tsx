@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
-import SocialFooter from '@/components/SocialFooter';
+import BlogFooter from '@/components/BlogFooter';
 import NewsSlider from '@/components/NewsSlider';
 import NewsDiscovery from '@/components/NewsDiscovery';
 
@@ -32,8 +32,8 @@ export default function HaberlerPage() {
       {/* News Discovery Section */}
       <NewsDiscovery />
       
-      {/* Footer */}
-      <SocialFooter />
+      {/* Blog Footer */}
+      <BlogFooter />
     </main>
   );
 }

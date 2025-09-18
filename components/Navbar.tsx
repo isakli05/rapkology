@@ -6,11 +6,11 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
-  { href: '/haberler', label: 'HABERLER' },
-  { href: '/etkinlikler', label: 'ETKİNLİKLER' },
-  { href: '/muzikler', label: 'MÜZİKLER' },
-  { href: '/videolar', label: 'VİDEOLAR' },
-  { href: '/iletisim', label: 'İLETİŞİM' },
+  { href: '/haberler', label: 'HABERLER', disabled: false },
+  { href: '/etkinlikler', label: 'ETKİNLİKLER', disabled: true },
+  { href: '/muzikler', label: 'MÜZİKLER', disabled: true },
+  { href: '/videolar', label: 'VİDEOLAR', disabled: true },
+  { href: '/iletisim', label: 'İLETİŞİM', disabled: true },
 ];
 
 export default function Navbar() {
@@ -41,13 +41,22 @@ export default function Navbar() {
           {/* Desktop Navigation Links - Design System Spacing */}
           <div className="hidden lg:flex lg:items-center lg:space-x-hero-gap xl:space-x-hero-gap-lg flex-1 ml-nav-gap">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="font-saira font-normal text-sm leading-none text-center text-white hover:text-brand-yellow transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
+              link.disabled ? (
+                <span
+                  key={link.href}
+                  className="font-saira font-normal text-sm leading-none text-center text-ink-500 cursor-default"
+                >
+                  {link.label}
+                </span>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="font-saira font-normal text-sm leading-none text-center text-white hover:text-brand-yellow transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
           </div>
 
@@ -133,14 +142,23 @@ export default function Navbar() {
               {/* Mobile Navigation Links */}
               <div className="space-y-3">
                 {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="block font-saira font-normal text-sm leading-none text-center text-white hover:text-brand-yellow transition-colors duration-200 py-2"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
+                  link.disabled ? (
+                    <span
+                      key={link.href}
+                      className="block font-saira font-normal text-sm leading-none text-center text-ink-500 cursor-default py-2"
+                    >
+                      {link.label}
+                    </span>
+                  ) : (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block font-saira font-normal text-sm leading-none text-center text-white hover:text-brand-yellow transition-colors duration-200 py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  )
                 ))}
               </div>
 

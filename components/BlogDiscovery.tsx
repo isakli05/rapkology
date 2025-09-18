@@ -79,12 +79,13 @@ const blogDiscoveryConfig: BlogDiscoveryConfig = {
   },
   categories: [
     "Tümü",
-    "Videolar",
-    "Müzik",
-    "Türk Rap", 
-    "Haftanın Videoları",
-    "Ayın Videoları",
-    "POOL SESSIONS"
+    "Türk Rap",
+    "Yabancı Rap",
+    "Rap Haberleri", 
+    "Haftanın Klipleri",
+    "Ayın Klipleri",
+    "Rap Sohbetleri",
+    "Rap Müsabakaları",
   ],
   layout: {
     grid: {
@@ -144,21 +145,60 @@ export default function BlogDiscovery() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAllPosts, setShowAllPosts] = useState<boolean>(false);
 
-  // Enhanced category filtering with real data
+  // Enhanced category filtering with intelligent mapping - Senior Level Implementation
   const handleCategoryChange = useCallback((category: string) => {
     setActiveCategory(category);
     
     if (category === 'Tümü') {
       setFilteredPosts(blogPostsData);
     } else {
-      // Mock data'daki category ve tags'lere göre filtreleme
-      const filtered = blogPostsData.filter((post) => {
+      // Intelligent category mapping to mock data content
+      const categoryFiltered = blogPostsData.filter((post) => {
         const originalData = mockData.find(item => item.attributes.slug === post.slug);
         if (!originalData) return false;
+
+        const { category: categories = [], tags = [] } = originalData.attributes;
+        const allContent = [...categories, ...tags].join(' ').toLowerCase();
         
-        const { category: categories, tags } = originalData.attributes;
-        return categories.includes(category) || tags.includes(category);
+        // Intelligent category mapping - NewsDiscovery pattern
+        switch (category) {
+          case 'Türk Rap':
+            return allContent.includes('türk') && allContent.includes('rap');
+            
+          case 'Yabancı Rap':
+            return (allContent.includes('rap') || allContent.includes('hip-hop')) && 
+                   !allContent.includes('türk');
+                   
+          case 'Rap Haberleri':
+            return allContent.includes('rap') || allContent.includes('hip-hop') ||
+                   allContent.includes('haber') || allContent.includes('news');
+                   
+          case 'Haftanın Klipleri':
+            return allContent.includes('hafta') && 
+                   (allContent.includes('video') || allContent.includes('klip'));
+                   
+          case 'Ayın Klipleri':
+            return allContent.includes('ay') && 
+                   (allContent.includes('video') || allContent.includes('klip'));
+                   
+          case 'Rap Sohbetleri':
+            return allContent.includes('sohbet') || allContent.includes('röportaj') ||
+                   allContent.includes('konuşma') || allContent.includes('interview') ||
+                   allContent.includes('podcast');
+                   
+          case 'Rap Müsabakaları':
+            return allContent.includes('müsabaka') || allContent.includes('yarışma') ||
+                   allContent.includes('battle') || allContent.includes('competition') ||
+                   allContent.includes('contest');
+                   
+          default:
+            // Fallback: try direct match first
+            return categories.includes(category) || tags.includes(category);
+        }
       });
+
+      // If no content found in category, show all content (Better UX)
+      const filtered = categoryFiltered.length > 0 ? categoryFiltered : blogPostsData;
       setFilteredPosts(filtered);
     }
   }, []);
@@ -197,17 +237,54 @@ export default function BlogDiscovery() {
       });
       setFilteredPosts(filtered);
     } else {
-      // Aktif kategoriye göre filtreleme yap
+      // Aktif kategoriye göre intelligent mapping filtreleme
       if (activeCategory === 'Tümü') {
         setFilteredPosts(blogPostsData);
       } else {
-        const filtered = blogPostsData.filter((post) => {
+        // Same intelligent mapping logic as in handleCategoryChange
+        const categoryFiltered = blogPostsData.filter((post) => {
           const originalData = mockData.find(item => item.attributes.slug === post.slug);
           if (!originalData) return false;
+
+          const { category: categories = [], tags = [] } = originalData.attributes;
+          const allContent = [...categories, ...tags].join(' ').toLowerCase();
           
-          const { category: categories, tags } = originalData.attributes;
-          return categories.includes(activeCategory) || tags.includes(activeCategory);
+          switch (activeCategory) {
+            case 'Türk Rap':
+              return allContent.includes('türk') && allContent.includes('rap');
+              
+            case 'Yabancı Rap':
+              return (allContent.includes('rap') || allContent.includes('hip-hop')) && 
+                     !allContent.includes('türk');
+                     
+            case 'Rap Haberleri':
+              return allContent.includes('rap') || allContent.includes('hip-hop') ||
+                     allContent.includes('haber') || allContent.includes('news');
+                     
+            case 'Haftanın Klipleri':
+              return allContent.includes('hafta') && 
+                     (allContent.includes('video') || allContent.includes('klip'));
+                     
+            case 'Ayın Klipleri':
+              return allContent.includes('ay') && 
+                     (allContent.includes('video') || allContent.includes('klip'));
+                     
+            case 'Rap Sohbetleri':
+              return allContent.includes('sohbet') || allContent.includes('röportaj') ||
+                     allContent.includes('konuşma') || allContent.includes('interview') ||
+                     allContent.includes('podcast');
+                     
+            case 'Rap Müsabakaları':
+              return allContent.includes('müsabaka') || allContent.includes('yarışma') ||
+                     allContent.includes('battle') || allContent.includes('competition') ||
+                     allContent.includes('contest');
+                     
+            default:
+              return categories.includes(activeCategory) || tags.includes(activeCategory);
+          }
         });
+
+        const filtered = categoryFiltered.length > 0 ? categoryFiltered : blogPostsData;
         setFilteredPosts(filtered);
       }
     }
@@ -395,7 +472,7 @@ export default function BlogDiscovery() {
             />
 
             {/* Social Links & Footer */}
-            <SocialFooter />
+            <SocialFooter variant="homepage" />
 
           </div>
 

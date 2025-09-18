@@ -54,7 +54,7 @@ const newsletterConfig: NewsletterConfig = {
   layout: {
     container: "space-y-6",
     inputContainer: "flex gap-0 border-b border-ink-500",
-    spacing: "mb-6"
+    spacing: "mb-12"
   },
   typography: {
     title: "font-saira-condensed font-bold text-[40px] leading-[1.04] text-white",
