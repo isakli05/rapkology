@@ -542,8 +542,14 @@
   }
 
   .news-card-title {
-    @apply font-saira-condensed font-bold text-news-title text-white uppercase leading-none;
+    @apply font-saira-condensed font-bold text-news-title text-white uppercase;
     @apply transition-colors duration-200 line-clamp-3;
+    line-height: 1.2;
+    height: clamp(3.2rem, 4vw, 3.8rem); /* Responsive fixed height for 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .news-card-title:hover {
