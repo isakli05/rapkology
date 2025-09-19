@@ -5,8 +5,10 @@ import { X } from 'lucide-react';
 import Image from 'next/image';
 import BlogCard from './BlogCard';
 import CategoryTags from './CategoryTags';
+import CategoryTabs from './CategoryTabs';
 import Newsletter from './Newsletter';
 import SocialFooter from './SocialFooter';
+import BlogFooter from './BlogFooter';
 import mockData from '../mock-data.json';
 
 interface BlogPost {
@@ -309,8 +311,166 @@ export default function BlogDiscovery() {
     >
       <div className="container mx-auto px-hero-gap lg:px-hero-gap-lg xl:px-hero-gap-xl">
         
-        {/* Design System Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        {/* Mobile Layout */}
+        <div className="lg:hidden">
+          {/* Mobile Header */}
+          <div className="flex items-start justify-between mb-8">
+            <div>
+              <h1 className="font-saira-condensed font-bold text-4xl leading-[0.89] text-white flex items-center gap-4 mb-4">
+                {blogDiscoveryConfig.sections.blog.title}
+                <Image 
+                  src="/icons/compass.svg"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="w-10 h-10"
+                  aria-hidden="true"
+                />
+              </h1>
+              
+              {/* Mobile Only - NE GÖRMEK İSTERSİN */}
+              <h2 
+                className="font-saira font-bold text-white mb-6"
+                style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', lineHeight: 1.04 }}
+              >
+                NE GÖRMEK İSTERSİN?
+              </h2>
+            </div>
+
+            {/* Mobile View Controls */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              {/* Search Toggle */}
+              <button
+                onClick={handleSearchToggle}
+                className={`p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black rounded-sm ${
+                  showSearch ? 'text-brand-yellow' : 'text-white hover:text-brand-yellow'
+                }`}
+                aria-label={showSearch ? 'Aramayı kapat' : 'Arama yap'}
+              >
+                {showSearch ? (
+                  <X className="w-5 h-5" strokeWidth={2} />
+                ) : (
+                  <Image 
+                    src="/icons/search.svg" 
+                    alt="Search" 
+                    width={20} 
+                    height={20} 
+                    className="w-5 h-5" 
+                  />
+                )}
+              </button>
+
+              {/* List View */}
+              <button
+                onClick={() => handleViewModeChange('list')}
+                className={`p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black rounded-sm ${
+                  viewMode === 'list' ? 'text-brand-yellow' : 'text-white hover:text-brand-yellow'
+                }`}
+                aria-label="Liste görünümü"
+                aria-pressed={viewMode === 'list'}
+              >
+                <Image 
+                  src="/icons/single.svg" 
+                  alt="List View" 
+                  width={20} 
+                  height={20} 
+                  className="w-5 h-5" 
+                />
+              </button>
+
+              {/* Grid View */}
+              <button
+                onClick={() => handleViewModeChange('grid')}
+                className={`p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black rounded-sm ${
+                  viewMode === 'grid' ? 'text-brand-yellow' : 'text-white hover:text-brand-yellow'
+                }`}
+                aria-label="Grid görünümü"
+                aria-pressed={viewMode === 'grid'}
+              >
+                <Image 
+                  src="/icons/two_columns.svg" 
+                  alt="Grid View" 
+                  width={20} 
+                  height={20} 
+                  className="w-5 h-5" 
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Category Tabs */}
+          <CategoryTabs
+            categories={blogDiscoveryConfig.categories}
+            activeCategory={activeCategory}
+            onCategoryChange={handleCategoryChange}
+          />
+
+          {/* Mobile Search Input */}
+          {showSearch && (
+            <div className="mb-8">
+              <div className="relative max-w-md">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  placeholder="Blog yazıları ara..."
+                  className="w-full px-4 py-3 bg-transparent border-b border-ink-500 text-white placeholder-ink-500 font-saira font-normal text-base focus:outline-none focus:border-brand-yellow transition-colors duration-200"
+                  autoFocus
+                />
+                {searchQuery && (
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-500 text-sm">
+                    {filteredPosts.length} sonuç
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Mobile Blog Posts Feed */}
+          <div 
+            className={
+              viewMode === 'grid' 
+                ? "grid grid-cols-1 sm:grid-cols-2 gap-6" 
+                : "space-y-8"
+            }
+            role="feed"
+            aria-label={`${displayedPosts.length} blog yazısı gösteriliyor`}
+          >
+            {displayedPosts.map((post, index) => (
+              <BlogCard
+                key={post.id}
+                post={post}
+                priority={index < 3}
+                viewMode={viewMode}
+              />
+            ))}
+          </div>
+
+          {/* Mobile Load More Button */}
+          {filteredPosts.length > blogDiscoveryConfig.loadMore.initialDisplayCount && (
+            <div className="flex justify-center mt-12">
+              <div className="cta-button-container">
+                <button
+                  onClick={handleToggleShowAll}
+                  className="cta-button uppercase tracking-wide bg-white"
+                  aria-expanded={showAllPosts}
+                  aria-controls="blog-posts-feed"
+                >
+                  {showAllPosts ? blogDiscoveryConfig.loadMore.buttonText.hide : blogDiscoveryConfig.loadMore.buttonText.show}
+                </button>
+                <div className="cta-button-shadow" aria-hidden="true"></div>
+              </div>
+            </div>
+          )}
+
+          {/* Mobile Only - Footer Section (like /haberler page) */}
+          <div className="mt-16 lg:hidden">
+            <BlogFooter />
+          </div>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid grid-cols-12 gap-8 lg:gap-12">
           
           {/* Left Section - Blog Content Feed */}
           <div className={`${blogDiscoveryConfig.layout.grid.leftColumns} space-y-8 lg:space-y-12`}>
@@ -324,7 +484,7 @@ export default function BlogDiscovery() {
                   alt=""
                   width={80}
                   height={80}
-                  className="w-6 h-6 lg:w-20 lg:h-20"
+                  className="w-20 h-20"
                   aria-hidden="true"
                 />
               </h1>

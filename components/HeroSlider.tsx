@@ -67,7 +67,7 @@ export default function HeroSlider() {
 
   return (
     <section 
-      className="relative w-full h-screen overflow-hidden"
+      className="relative w-full h-screen lg:h-screen overflow-hidden"
       role="region"
       aria-label="Hero slider"
       aria-roledescription="carousel"
@@ -99,10 +99,59 @@ export default function HeroSlider() {
             aria-label={`${slideIndex + 1} / ${slidesData.length}: ${slide.title}`}
             id={`slide-${slide.id}`}
           >
-            <div className="relative w-full h-full bg-white overflow-hidden">
+            {/* Mobile Layout - Vertical Stack */}
+            <div className="lg:hidden w-full h-full flex flex-col bg-black">
+              
+              {/* Content Section - Top */}
+              <div className="flex-shrink-0 pt-20 pb-6 px-hero-gap">
+                <div className="w-full max-w-md mx-auto text-center space-y-6 text-white">
+                  {/* Slider Title - Mobile (Always White) */}
+                  <h1 className="font-saira-condensed font-bold text-4xl sm:text-5xl leading-tight tracking-tight text-white">
+                    {slide.title}
+                  </h1>
+
+                  {/* Slider Description - Mobile (Always White) */}
+                  <p className="font-saira font-normal text-base leading-tight tracking-normal text-white">
+                    {slide.description}
+                  </p>
+
+                  {/* CTA Button - Mobile */}
+                  <div className="cta-button-container">
+                    <button 
+                      className="cta-button"
+                      aria-describedby={`slide-${slide.id}-desc-mobile`}
+                      title={`${slide.title} - ${slide.buttonText}`}
+                    >
+                      {slide.buttonText}
+                    </button>
+                    <div className="cta-button-shadow" aria-hidden="true"></div>
+                    
+                    {/* Screen reader description - Mobile */}
+                    <div id={`slide-${slide.id}-desc-mobile`} className="sr-only">
+                      {slide.title}: {slide.description}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Image Section - Bottom */}
+              <div className="flex-1 relative overflow-hidden">
+                <Image
+                  src={slide.mainImage}
+                  alt={slide.title}
+                  fill
+                  priority={slide.id === 1}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              
+            </div>
+
+            {/* Desktop Layout - Original Grid System */}
+            <div className="hidden lg:block relative w-full h-full bg-white overflow-hidden">
               {/* Rapçi Dayı - Tam Genişlikte Background */}
               <div className="absolute inset-0 w-full h-full">
-                <div className={`relative w-full h-full ${slide.id === 2 ? '-left-[20%]' : ''}`}>
+                <div className={`relative w-full h-full ${slide.id === 2 ? 'lg:-left-[20%]' : ''}`}>
                   <Image
                     src={slide.mainImage}
                     alt={slide.title}
@@ -122,14 +171,14 @@ export default function HeroSlider() {
                 aria-hidden="true"
               ></div>
 
-              {/* Content Grid - Semantic Layout System */}
+              {/* Desktop Content Layout */}
               <div className="absolute inset-0 z-slider-content">
-                <div className="h-full grid grid-cols-1 lg:grid-cols-12 items-center">
+                <div className="h-full grid grid-cols-12 items-center">
                   {/* Empty space for rapper image - responsive columns */}
-                  <div className="hidden lg:block lg:col-span-6 xl:col-span-7"></div>
+                  <div className="col-span-6 xl:col-span-7"></div>
                   
                   {/* Text content - professional spacing */}
-                  <div className={`col-span-1 lg:col-span-5 xl:col-span-4 space-y-6 px-hero-gap lg:px-hero-gap-lg xl:px-hero-gap-xl lg:pr-hero-gap-xl xl:pr-16 ${slide.textColor === 'white' ? 'text-white' : 'text-black'}`}>
+                  <div className={`col-span-5 xl:col-span-4 space-y-6 px-hero-gap-lg xl:px-hero-gap-xl pr-hero-gap-xl xl:pr-16 ${slide.textColor === 'white' ? 'text-white' : 'text-black'}`}>
                     {/* Slider Title - Typography Constraints */}
                     <h1 className={`font-saira-condensed font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight max-w-md ${slide.textColor === 'white' ? 'text-white' : 'text-black'}`}>
                       {slide.title}
@@ -159,22 +208,20 @@ export default function HeroSlider() {
                         {slide.title}: {slide.description}
                       </div>
                     </div>
-
-                    
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Bottom Tear Mask - Now black */}
-              <div className="absolute bottom-0 left-0 right-0 z-slider-mask pointer-events-none">
-                <Image
-                  src="/images/bottom-tear.png"
-                  alt="Bottom tear"
-                  width={1920}
-                  height={100}
-                  className="w-full h-auto"
-                />
-              </div>
+            {/* Bottom Tear Mask - Desktop Only */}
+            <div className="hidden lg:block absolute bottom-0 left-0 right-0 z-slider-mask pointer-events-none">
+              <Image
+                src="/images/bottom-tear.png"
+                alt="Bottom tear"
+                width={1920}
+                height={100}
+                className="w-full h-auto"
+              />
             </div>
           </SwiperSlide>
         ))}

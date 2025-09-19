@@ -19,6 +19,7 @@ interface BannerConfig {
   };
   assets: {
     bottomTear: string;
+    bottomTearMobile: string;
     bannerPeople: string;
     bannerCloud: string;
     rapperLeft: string;
@@ -71,6 +72,7 @@ const bannerConfig: BannerConfig = {
   },
   assets: {
     bottomTear: "/images/bottom-tear.png",
+    bottomTearMobile: "/images/moble_banner_tear.svg",
     bannerPeople: "/images/banner-people.png", 
     bannerCloud: "/images/banner-black-cloud.png",
     rapperLeft: "/images/rapci_dayi.png",
@@ -164,7 +166,7 @@ export default function Banner() {
       <div className="absolute inset-0 z-banner-content">
         <div className="h-full flex items-center justify-center">
           
-          {/* Left Rapper - Design System Positioned */}
+          {/* Left Rapper - Desktop Only */}
           <div className="hidden lg:block flex-none w-64 xl:w-80 relative h-full">
             <div 
               className="absolute w-full h-5/6"
@@ -194,7 +196,7 @@ export default function Banner() {
             <div className={`transform ${bannerConfig.layout.rotation} flex flex-col items-center space-y-6 lg:space-y-8`}>
               
               {/* Main Content Section */}
-              <div className="flex flex-col lg:flex-row items-center justify-start space-y-6 lg:space-y-0 lg:gap-0">
+              <div className="flex flex-row items-center justify-center lg:justify-start gap-4 lg:gap-0">
                 
                 {/* Twitch Logo - Design System Component */}
                 <div className="flex-shrink-0">
@@ -212,20 +214,20 @@ export default function Banner() {
                 {/* Vertical Divider - Design System Component */}
                 <div className="banner-logo-divider"></div>
                 
-                {/* Title Text - 32px from Divider */}
-                <div className="text-center lg:text-left lg:ml-8">
+                {/* Title Text - Responsive Spacing */}
+                <div className="text-left ml-2 lg:ml-8">
                   {/* HER HAFTA - White Light */}
-                  <h2 className="font-saira-condensed font-light text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight text-white">
+                  <h2 className="font-saira-condensed font-light text-2xl sm:text-3xl lg:text-5xl xl:text-6xl leading-tight text-white">
                     {bannerConfig.content.title.main}
                   </h2>
                   
                   {/* CANLIDAYIZ! - Brand Yellow Bold */}
-                  <h2 className="font-saira-condensed font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight text-brand-yellow">
+                  <h2 className="font-saira-condensed font-bold text-2xl sm:text-3xl lg:text-5xl xl:text-6xl leading-tight text-brand-yellow">
                     {bannerConfig.content.title.highlight}
                   </h2>
                   
                   {/* Subtitle - Directly Below */}
-                  <p className="font-saira font-bold text-base lg:text-lg xl:text-xl leading-tight text-center lg:text-left text-white mt-1 lg:mt-2">
+                  <p className="font-saira font-bold text-sm lg:text-lg xl:text-xl leading-tight text-left text-white mt-1 lg:mt-2">
                     {bannerConfig.content.subtitle}
                   </p>
                 </div>
@@ -259,6 +261,33 @@ export default function Banner() {
               
             </div>
 
+            {/* Mobile Rappers - Only on Mobile */}
+            <div className="lg:hidden mt-8 flex items-end justify-between">
+              {/* Left Rapper - Mobile */}
+              <div className="w-60 h-60 relative flex-shrink-0 -bottom-48">
+                <Image
+                  src={bannerConfig.assets.rapperLeft}
+                  alt="Rapper"
+                  fill
+                  className="object-contain object-bottom"
+                  priority={true}
+                  sizes="240px"
+                />
+              </div>
+
+              {/* Right Rapper - Mobile */}
+              <div className="w-64 h-64 relative flex-shrink-0 -bottom-48">
+                <Image
+                  src={bannerConfig.assets.rapperRight}
+                  alt="Rapper"
+                  fill
+                  className="object-contain object-bottom"
+                  priority={true}
+                  sizes="240px"
+                />
+              </div>
+            </div>
+
             {/* Screen reader description */}
             <div id="banner-desc" className="sr-only">
               Twitch platformunda her hafta canlı yayınlarımızı takip edebilir, takip et ve abone ol butonları ile kanalımıza katılabilirsiniz.
@@ -266,7 +295,7 @@ export default function Banner() {
 
           </div>
           
-          {/* Right Rapper - Design System Positioned */}
+          {/* Right Rapper - Desktop Only */}
           <div className="hidden lg:block flex-none w-64 xl:w-80 relative h-full">
             <div 
               className="absolute w-full h-5/6"
@@ -289,9 +318,22 @@ export default function Banner() {
         </div>
       </div>
 
-      {/* Bottom Tear Mask - Design System Component */}
+      {/* Mobile Tear Mask - SVG */}
+      <div className="lg:hidden absolute left-0 right-0 bottom-0 z-banner-mask pointer-events-none">
+        <Image
+          src={bannerConfig.assets.bottomTearMobile}
+          alt="Section divider"
+          width={428}
+          height={56}
+          className="w-full h-auto"
+          priority={true}
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Desktop Tear Mask - PNG */}
       <div 
-        className="absolute left-0 right-0 z-banner-mask pointer-events-none"
+        className="hidden lg:block absolute left-0 right-0 z-banner-mask pointer-events-none"
         style={{
           top: bannerConfig.layout.positioning.mask.top,
           bottom: "0"

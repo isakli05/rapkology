@@ -17,8 +17,8 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Senior Level Pattern - Route-based Styling
-  const navbarVariant = pathname === '/' ? 'navbar-glassmorphism' : 'navbar-solid';
+  // Senior Level Pattern - Route-based Styling with Mobile Override
+  const navbarVariant = pathname === '/' ? 'navbar-glassmorphism lg:navbar-glassmorphism navbar-solid' : 'navbar-solid';
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-nav ${navbarVariant}`}>
@@ -90,12 +90,12 @@ export default function Navbar() {
             {/* Hamburger Menu */}
             <button
               type="button"
-              className="text-white hover:text-brand-yellow focus:outline-none focus:text-brand-yellow"
+              className="text-white hover:text-brand-yellow focus:outline-none focus:text-brand-yellow p-2 rounded-sm transition-colors duration-200"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Menüyü aç"
             >
               {isMobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
@@ -104,7 +104,7 @@ export default function Navbar() {
                   alt="Menü"
                   width={32}
                   height={14}
-                  className="w-8 h-auto"
+                  className="w-9 h-auto"
                 />
               )}
             </button>

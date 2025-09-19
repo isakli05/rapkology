@@ -42,7 +42,7 @@ const config: Config = {
         'hero-gap-xl': 'clamp(0px, 0.05vw, 1px)',
         'banner-logo-divider': '2rem',
         // Monthly Favorites Design System
-        'favorites-logo-width': 'clamp(450px, 40vw, 600px)',
+        'favorites-logo-width': 'clamp(280px, 40vw, 600px)',
         'favorites-logo-height': 'clamp(80px, 6vw, 96px)',
         'favorites-logo-gap': 'clamp(1.5rem, 4vw, 2rem)',
         // News Slider Design System - Professional Spacing
@@ -68,6 +68,7 @@ const config: Config = {
         'favorites-logo': '20',
         'favorites-cover': '10',
         'favorites-content': '20',
+        'favorites-title': '25',
         'favorites-mask': '30',
         // News Slider Z-Index System
         'news-backgrounds': '0',

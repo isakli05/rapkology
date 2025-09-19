@@ -142,7 +142,7 @@ export default function Trends() {
       <div className="container mx-auto px-hero-gap lg:px-hero-gap-lg xl:px-hero-gap-xl">
         
         {/* Section Header - Design System Typography */}
-        <div className="flex items-start justify-start mb-12 lg:mb-16">
+        <div className="flex items-start justify-center lg:justify-start mb-12 lg:mb-16">
           <h2 className="font-saira-condensed font-bold text-[60px] leading-[0.89] text-white flex items-center gap-4">
             {trendsConfig.title}
             <TrendingUp 
