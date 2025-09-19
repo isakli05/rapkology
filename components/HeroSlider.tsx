@@ -16,6 +16,7 @@ interface SlideData {
   backgroundImage: string;
   mainImage: string;
   buttonText: string;
+  textColor?: string;
 }
 
 const slidesData: SlideData[] = [
@@ -25,46 +26,17 @@ const slidesData: SlideData[] = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi",
     backgroundImage: "/images/first_slide_asset_2.jpg",
     mainImage: "/images/first_slide_asset_1.png",
-    buttonText: "Devamını Oku"
+    buttonText: "Devamını Oku",
+    textColor: "black"
   },
   {
     id: 2,
-    title: "MÜZİK DÜNYASINDAKİ SON GELİŞMELER",
-    description: "Müzik endüstrisindeki en güncel haberler, yeni çıkan albümler ve sanatçı röportajları ile müzik dünyasının nabzını tutuyoruz.",
+    title: "TÜRKÇE RAP VE DÜNYA MÜZİK HABERLERİNİ TAKİP ET",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi",
     backgroundImage: "/images/first_slide_asset_2.jpg",
-    mainImage: "/images/first_slide_asset_1.png",
-    buttonText: "Devamını Oku"
-  },
-  {
-    id: 3,
-    title: "ETKİNLİKLER VE KONSERLERİ KAÇIRMAYIN",
-    description: "Yaklaşan konserler, festivaller ve özel etkinlikler hakkında detaylı bilgiler. En sevdiğiniz sanatçıları canlı dinleme fırsatı.",
-    backgroundImage: "/images/first_slide_asset_2.jpg",
-    mainImage: "/images/first_slide_asset_1.png",
-    buttonText: "Devamını Oku"
-  },{
-    id: 4,
-    title: "ETKİNLİKLER VE KONSERLERİ KAÇIRMAYIN",
-    description: "Yaklaşan konserler, festivaller ve özel etkinlikler hakkında detaylı bilgiler. En sevdiğiniz sanatçıları canlı dinleme fırsatı.",
-    backgroundImage: "/images/first_slide_asset_2.jpg",
-    mainImage: "/images/first_slide_asset_1.png",
-    buttonText: "Devamını Oku"
-  },
-  {
-    id: 5,
-    title: "ETKİNLİKLER VE KONSERLERİ KAÇIRMAYIN",
-    description: "Yaklaşan konserler, festivaller ve özel etkinlikler hakkında detaylı bilgiler. En sevdiğiniz sanatçıları canlı dinleme fırsatı.",
-    backgroundImage: "/images/first_slide_asset_2.jpg",
-    mainImage: "/images/first_slide_asset_1.png",
-    buttonText: "Devamını Oku"
-  },
-  {
-    id: 6,
-    title: "ETKİNLİKLER VE KONSERLERİ KAÇIRMAYIN",
-    description: "Yaklaşan konserler, festivaller ve özel etkinlikler hakkında detaylı bilgiler. En sevdiğiniz sanatçıları canlı dinleme fırsatı.",
-    backgroundImage: "/images/first_slide_asset_2.jpg",
-    mainImage: "/images/first_slide_asset_1.png",
-    buttonText: "Devamını Oku"
+    mainImage: "/images/second_slider.png",
+    buttonText: "Devamını Oku",
+    textColor: "white"
   }
 ];
 
@@ -102,7 +74,7 @@ export default function HeroSlider() {
     >
       <Swiper
         id="hero-slider"
-        modules={[Autoplay]}
+        modules={[]}
         spaceBetween={0}
         slidesPerView={1}
         navigation={false}
@@ -127,17 +99,28 @@ export default function HeroSlider() {
             aria-label={`${slideIndex + 1} / ${slidesData.length}: ${slide.title}`}
             id={`slide-${slide.id}`}
           >
-            <div className="relative w-full h-full bg-white">
+            <div className="relative w-full h-full bg-white overflow-hidden">
               {/* Rapçi Dayı - Tam Genişlikte Background */}
               <div className="absolute inset-0 w-full h-full">
-                <Image
-                  src={slide.mainImage}
-                  alt={slide.title}
-                  fill
-                  priority={slide.id === 1}
-                  className="object-cover w-full h-full"
-                />
+                <div className={`relative w-full h-full ${slide.id === 2 ? '-left-[20%]' : ''}`}>
+                  <Image
+                    src={slide.mainImage}
+                    alt={slide.title}
+                    fill
+                    priority={slide.id === 1}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
               </div>
+
+              {/* Linear Gradient Overlay */}
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to right, transparent 60%, rgba(0,0,0,0.8) 100%)'
+                }}
+                aria-hidden="true"
+              ></div>
 
               {/* Content Grid - Semantic Layout System */}
               <div className="absolute inset-0 z-slider-content">
@@ -146,14 +129,14 @@ export default function HeroSlider() {
                   <div className="hidden lg:block lg:col-span-6 xl:col-span-7"></div>
                   
                   {/* Text content - professional spacing */}
-                  <div className="col-span-1 lg:col-span-5 xl:col-span-4 text-black space-y-6 px-hero-gap lg:px-hero-gap-lg xl:px-hero-gap-xl lg:pr-hero-gap-xl xl:pr-16">
+                  <div className={`col-span-1 lg:col-span-5 xl:col-span-4 space-y-6 px-hero-gap lg:px-hero-gap-lg xl:px-hero-gap-xl lg:pr-hero-gap-xl xl:pr-16 ${slide.textColor === 'white' ? 'text-white' : 'text-black'}`}>
                     {/* Slider Title - Typography Constraints */}
-                    <h1 className="font-saira-condensed font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight text-black max-w-md">
+                    <h1 className={`font-saira-condensed font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight max-w-md ${slide.textColor === 'white' ? 'text-white' : 'text-black'}`}>
                       {slide.title}
                     </h1>
 
                     {/* Slider Description - Design System Typography */}
-                    <p className="font-saira font-normal text-base leading-tight tracking-normal text-black">
+                    <p className={`font-saira font-normal text-base leading-tight tracking-normal ${slide.textColor === 'white' ? 'text-white' : 'text-black'}`}>
                       {slide.description}
                     </p>
 
