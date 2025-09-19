@@ -69,7 +69,7 @@ export default function NewsCard({ news, priority = false, viewMode = 'double' }
         {/* Read More Link - Figma Spec Typography */}
         <div>
           <Link 
-            href={`/haberler/${news.slug}`}
+            href={`/blog/${news.slug}`}
             className="news-card-link"
           >
             Daha Fazla Oku
@@ -79,7 +79,7 @@ export default function NewsCard({ news, priority = false, viewMode = 'double' }
 
       {/* Link overlay for full card clickability */}
       <Link 
-        href={`/haberler/${news.slug}`}
+        href={`/blog/${news.slug}`}
         className="absolute inset-0 z-10"
         aria-label={`${news.title} haberini oku`}
       />

@@ -500,11 +500,11 @@
 
   /* Navbar Variants - Senior Level Architecture */
   .navbar-glassmorphism {
-    @apply bg-black/50 backdrop-blur-nav border-b border-gray-800/50;
+    @apply bg-black/50 backdrop-blur-nav;
   }
 
   .navbar-solid {
-    @apply bg-black border-b border-gray-800;
+    @apply bg-black;
   }
 
   /* Category Tabs - Horizontal Filter System */
@@ -592,6 +592,55 @@
 
   .discovery-content-wrapper {
     @apply relative z-discovery-content;
+  }
+
+  /* Blog Detail Content - Design System Typography */
+  .prose {
+    @apply max-w-none;
+  }
+  
+  .prose p {
+    @apply mb-6 text-white font-saira font-normal leading-[1.2] tracking-[0.015em];
+  }
+  
+  .prose p:last-child {
+    @apply mb-0;
+  }
+
+  .prose h2 {
+    @apply font-saira-condensed font-bold text-white mb-4 mt-8;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    line-height: 1.1;
+  }
+
+  .prose h3 {
+    @apply font-saira-condensed font-bold text-white mb-3 mt-6;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.1;
+  }
+
+  .prose ul, .prose ol {
+    @apply mb-6 pl-6 space-y-2 text-white;
+  }
+
+  .prose li {
+    @apply font-saira font-normal leading-[1.2] tracking-[0.015em];
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-brand-yellow pl-6 my-8 italic text-white;
+  }
+
+  .prose a {
+    @apply text-brand-yellow underline hover:text-white transition-colors duration-200;
+  }
+
+  .prose strong {
+    @apply font-bold text-white;
+  }
+
+  .prose em {
+    @apply italic text-white;
   }
 }
 

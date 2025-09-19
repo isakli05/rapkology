@@ -455,7 +455,7 @@ export default function BlogDiscovery() {
           </div>
 
           {/* Right Section - Sidebar */}
-          <div className={`${blogDiscoveryConfig.layout.grid.rightColumns} sidebar-spacing`}>
+          <div className={`${blogDiscoveryConfig.layout.grid.rightColumns} sidebar-spacing pt-8 lg:pt-12`}>
             
             {/* Category Filter Tags */}
             <CategoryTags

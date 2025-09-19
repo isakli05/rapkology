@@ -97,7 +97,7 @@ const FeaturedNewsCard = ({ news, isActive }: FeaturedNewsCardProps) => (
 
     {/* Link overlay for accessibility */}
     <Link 
-      href={`/haberler/${news.attributes.slug}`}
+      href={`/blog/${news.attributes.slug}`}
       className="absolute inset-0 z-15"
       aria-label={`${news.attributes.title} haberini oku`}
     />
@@ -127,7 +127,7 @@ const SideNewsCard = ({ news }: SideNewsCardProps) => (
 
     {/* Link overlay */}
     <Link 
-      href={`/haberler/${news.attributes.slug}`}
+      href={`/blog/${news.attributes.slug}`}
       className="absolute inset-0"
       aria-label={`${news.attributes.title} haberini oku`}
     />

@@ -334,7 +334,7 @@ export default function NewsDiscovery() {
             className={`mb-12 lg:mb-16 ${
               viewMode === 'double' 
                 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" 
-                : "space-y-8 lg:space-y-12"
+                : "grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8"
             }`}
             role="feed"
             aria-label={`${displayedNews.length} haber gösteriliyor, ${activeCategory} kategorisinde ${filteredNews.length} toplam haber`}
@@ -377,7 +377,7 @@ export default function NewsDiscovery() {
             <div className="cta-button-container">
               <button
                 onClick={handleToggleShowAll}
-                className="cta-button uppercase tracking-wide"
+                className="cta-button uppercase tracking-wide bg-white"
                 aria-expanded={showAllNews}
                 aria-controls="news-grid"
                 title={showAllNews ? newsDiscoveryConfig.loadMore.buttonText.hide : newsDiscoveryConfig.loadMore.buttonText.show}

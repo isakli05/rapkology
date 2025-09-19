@@ -58,7 +58,7 @@ const newsletterConfig: NewsletterConfig = {
   },
   typography: {
     title: "font-saira-condensed font-bold text-[40px] leading-[1.04] text-white",
-    input: "font-saira font-bold text-sm leading-none text-white placeholder-ink-500",
+    input: "font-saira font-bold text-sm leading-none text-white placeholder-white",
     button: "font-saira font-bold text-sm leading-none text-right text-brand-yellow"
   },
   form: {
