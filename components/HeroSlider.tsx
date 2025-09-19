@@ -74,7 +74,7 @@ export default function HeroSlider() {
     >
       <Swiper
         id="hero-slider"
-        modules={[]}
+        modules={[Autoplay]}
         spaceBetween={0}
         slidesPerView={1}
         navigation={false}
