@@ -16,7 +16,7 @@ interface FooterLink {
   id: string;
   label: string;
   href: string;
-  disabled: boolean;
+  active: boolean;
 }
 
 type SocialFooterVariant = 'homepage' | 'blog';
@@ -117,31 +117,31 @@ const socialFooterConfig: SocialFooterConfig = {
       id: 'haberler',
       label: 'HABERLER',
       href: '/haberler',
-      disabled: false
+      active: true
     },
     {
       id: 'etkinlikler',
       label: 'ETKİNLİKLER',
       href: '/etkinlikler',
-      disabled: true
+      active: false
     },
     {
       id: 'muzikler',
       label: 'MÜZİKLER',
       href: '/muzikler',
-      disabled: true
+      active: false
     },
     {
       id: 'videolar',
       label: 'VİDEOLAR',
       href: '/videolar',
-      disabled: true
+      active: false
     },
     {
       id: 'iletisim',
       label: 'İLETİŞİM',
       href: '/iletisim',
-      disabled: true
+      active: false
     }
   ],
   layout: {
@@ -164,7 +164,7 @@ const socialFooterConfig: SocialFooterConfig = {
       hover: "hover:text-white"
     },
     footerLink: {
-      base: "focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black rounded-sm",
+      base: "focus:outline-none",
       hover: "hover:text-brand-yellow"
     },
     transition: "transition-all duration-200"
@@ -260,31 +260,22 @@ export default function SocialFooter({ variant = 'homepage' }: SocialFooterProps
         aria-label={socialFooterConfig.accessibility.footerLabel}
       >
         {socialFooterConfig.footerLinks.map((link) => (
-          link.disabled ? (
-            <span
-              key={link.id}
-              className={`
-                ${socialFooterConfig.typography.footerLink}
-                text-ink-500 cursor-default
-              `}
-            >
-              {link.label}
-            </span>
-          ) : (
-            <Link
-              key={link.id}
-              href={link.href}
-              onClick={() => handleFooterLinkClick(link)}
-              className={`
-                ${socialFooterConfig.typography.footerLink}
-                ${socialFooterConfig.interactions.footerLink.base}
-                ${socialFooterConfig.interactions.footerLink.hover}
-                ${socialFooterConfig.interactions.transition}
-              `}
-            >
-              {link.label}
-            </Link>
-          )
+          <Link
+            key={link.id}
+            href={link.active ? link.href : "#"}
+            onClick={link.active 
+              ? () => handleFooterLinkClick(link)
+              : (e) => { e.preventDefault(); handleFooterLinkClick(link); }
+            }
+            className={`
+              ${socialFooterConfig.typography.footerLink}
+              ${socialFooterConfig.interactions.footerLink.base}
+              ${socialFooterConfig.interactions.footerLink.hover}
+              ${socialFooterConfig.interactions.transition}
+            `}
+          >
+            {link.label}
+          </Link>
         ))}
       </nav>
 
