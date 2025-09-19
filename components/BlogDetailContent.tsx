@@ -195,7 +195,7 @@ const EngagementStats = ({
       <Heart 
         className={blogDetailConfig.engagement.icon} 
         strokeWidth={2} 
-        fill="currentColor"
+        fill=""
       />
       <span className={blogDetailConfig.engagement.count}>
         {likeCount}
@@ -233,7 +233,7 @@ const RelatedContent = () => {
   return (
     <section className="mb-12 lg:mb-16" aria-label={blogDetailConfig.accessibility.relatedLabel}>
       {/* Section Title - Design System Typography */}
-      <h2 className={`${blogDetailConfig.typography.relatedTitle} mb-8 lg:mb-12`} 
+      <h2 className={`${blogDetailConfig.typography.relatedTitle} mb-8 lg:mb-12 mt-16 lg:mt-24`} 
           style={{ fontSize: 'clamp(2.5rem, 4vw, 3.75rem)' }}>
         DAHA FAZLA İÇERİK
       </h2>
@@ -305,7 +305,7 @@ const MiniTrends = () => {
     <section className="mb-12 lg:mb-16">
       {/* Trends Title */}
       <div className="flex items-start justify-center lg:justify-start mb-8 lg:mb-12">
-        <h2 className={`${blogDetailConfig.typography.relatedTitle} flex items-center gap-4`}
+        <h2 className={`${blogDetailConfig.typography.relatedTitle} flex items-center gap-4 mt-16 lg:mt-24`}
             style={{ fontSize: 'clamp(2.5rem, 4vw, 3.75rem)' }}>
           TRENDLER
           <TrendingUp 
