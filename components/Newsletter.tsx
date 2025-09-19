@@ -57,7 +57,7 @@ const newsletterConfig: NewsletterConfig = {
     spacing: "mb-12"
   },
   typography: {
-    title: "font-saira-condensed font-bold text-[40px] leading-[1.04] text-white",
+    title: "font-saira-condensed font-bold text-white",
     input: "font-saira font-bold text-sm leading-none text-white placeholder-white",
     button: "font-saira font-bold text-sm leading-none text-right text-brand-yellow"
   },
@@ -167,7 +167,10 @@ export default function Newsletter({ title, onSubmit }: NewsletterProps) {
     >
       
       {/* Section Title - Design System Typography */}
-      <h2 className={`${newsletterConfig.typography.title} ${newsletterConfig.layout.spacing}`}>
+      <h2 
+        className={`${newsletterConfig.typography.title} ${newsletterConfig.layout.spacing}`}
+        style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', lineHeight: 1.04 }}
+      >
         {title}
       </h2>
 

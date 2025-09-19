@@ -3,7 +3,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Eye, Heart, MessageCircle, TrendingUp } from 'lucide-react';
+import { Eye, Heart, MessageCircle, TrendingUp, ChevronRight } from 'lucide-react';
 import Navbar from './Navbar';
 import Newsletter from './Newsletter';
 import SocialFooter from './SocialFooter';
@@ -138,17 +138,17 @@ const blogDetailConfig: BlogDetailConfig = {
 
 // Breadcrumb Component - Design System
 const BlogBreadcrumb = ({ title }: { title: string }) => (
-  <nav className="mb-6 lg:mb-8" aria-label="Breadcrumb">
+  <nav className="mb-4 lg:mb-8" aria-label="Breadcrumb">
     <div className="flex items-center space-x-2 font-saira font-normal text-sm text-white">
       <Link href="/" className="hover:text-brand-yellow transition-colors duration-200">
         ANA SAYFA
       </Link>
-      <span className="text-ink-500">{'>'}</span>
+      <ChevronRight className="w-4 h-4 text-ink-500" strokeWidth={2} />
       <Link href="/blog" className="hover:text-brand-yellow transition-colors duration-200">
         BLOG
       </Link>
-      <span className="text-ink-500">{'>'}</span>
-      <span className="text-white font-bold truncate max-w-xs" title={title}>
+      <ChevronRight className="w-4 h-4 text-ink-500" strokeWidth={2} />
+      <span className="text-white font-bold truncate max-w-[120px] md:max-w-xs" title={title}>
         {title.toUpperCase()}
       </span>
     </div>
@@ -304,7 +304,7 @@ const MiniTrends = () => {
   return (
     <section className="mb-12 lg:mb-16">
       {/* Trends Title */}
-      <div className="flex items-start justify-start mb-8 lg:mb-12">
+      <div className="flex items-start justify-center lg:justify-start mb-8 lg:mb-12">
         <h2 className={`${blogDetailConfig.typography.relatedTitle} flex items-center gap-4`}
             style={{ fontSize: 'clamp(2.5rem, 4vw, 3.75rem)' }}>
           TRENDLER
@@ -369,7 +369,7 @@ const MiniTrends = () => {
         <div className="cta-button-container">
           <button
             onClick={handleToggleShowAll}
-            className="cta-button uppercase tracking-wide"
+            className="cta-button uppercase tracking-wide bg-white"
             aria-expanded={showAll}
           >
             {showAll ? 'Daha Az Göster' : 'Tümünü Gör'}
