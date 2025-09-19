@@ -16,24 +16,35 @@ export default function CategoryTabs({ categories, activeCategory, onCategoryCha
   }, [onCategoryChange]);
 
   return (
-    <div className="category-tabs-container mb-8 lg:mb-12">
-      <div className="flex flex-wrap gap-3 lg:gap-4">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => handleCategoryClick(category)}
-            className={`category-tab ${
-              activeCategory === category
-                ? 'category-tab--active'
-                : 'category-tab--inactive'
-            }`}
-            aria-pressed={activeCategory === category}
-            aria-label={`${category} kategorisini seç`}
-          >
-            {category}
-          </button>
-        ))}
+    <>
+      <style jsx global>{`
+        .category-scroll-container::-webkit-scrollbar {
+          display: none;
+        }
+        .category-scroll-container {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+      <div className="category-tabs-container mb-8 lg:mb-12">
+        <div className="category-scroll-container flex gap-3 lg:gap-4 overflow-x-auto lg:flex-wrap lg:overflow-x-visible pb-2">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => handleCategoryClick(category)}
+              className={`category-tab flex-shrink-0 ${
+                activeCategory === category
+                  ? 'category-tab--active'
+                  : 'category-tab--inactive'
+              }`}
+              aria-pressed={activeCategory === category}
+              aria-label={`${category} kategorisini seç`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

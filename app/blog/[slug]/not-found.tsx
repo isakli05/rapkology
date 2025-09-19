@@ -36,7 +36,7 @@ export default function BlogNotFound() {
               className="inline-flex items-center gap-3 px-6 py-3 bg-brand-yellow text-black font-saira font-bold text-sm hover:bg-opacity-80 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black"
             >
               <ArrowLeft className="w-4 h-4" strokeWidth={2} />
-              BLOG'A GERİ DÖN
+              BLOG&apos;A GERİ DÖN
             </Link>
 
             {/* Search Button */}

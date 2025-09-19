@@ -3,6 +3,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { X } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import NewsCard from './NewsCard';
 import CategoryTabs from './CategoryTabs';
 import mockData from '../mock-data.json';
@@ -207,7 +208,7 @@ export default function NewsDiscovery() {
   }, []);
 
   return (
-    <section className="relative w-full bg-black py-16 lg:py-24 overflow-hidden" role="region" aria-label="Keşfet bölümü">
+    <section className="relative w-full bg-black py-16 lg:py-24 overflow-x-hidden" role="region" aria-label="Keşfet bölümü">
       {/* Diamond Background - Behind everything */}
       <div className="discovery-diamond-background" aria-hidden="true">
         <Image 
@@ -219,28 +220,36 @@ export default function NewsDiscovery() {
         />
       </div>
 
-      <div className="discovery-content-wrapper">
-        <div className="container mx-auto px-4 lg:px-hero-gap-lg xl:px-hero-gap-xl">
+      <div className="discovery-content-wrapper overflow-x-hidden">
+        <div className="container mx-auto py-8 px-4 lg:px-hero-gap-lg xl:px-hero-gap-xl w-full max-w-screen-2xl">
         
         {/* Header Section */}
-        <div className="flex items-start justify-between mb-8 lg:mb-12">
+        <div className="flex items-start justify-between mb-8 lg:mb-12 w-full max-w-full">
           {/* Title with Compass and Diamond Icons */}
           <div>
-            <h1 className="font-saira-condensed font-bold text-6xl lg:text-8xl leading-[0.89] text-white flex items-center gap-4 mb-4">
+            <h1 className="font-saira-condensed font-bold text-4xl lg:text-8xl leading-[0.89] text-white flex items-center gap-4 mb-4">
               {newsDiscoveryConfig.title}
               <Image 
                 src="/icons/compass.svg"
                 alt=""
                 width={80}
                 height={80}
-                className="w-6 h-6 lg:w-20 lg:h-20"
+                className="w-10 h-10 lg:w-20 lg:h-20"
                 aria-hidden="true"
               />
             </h1>
+            
+            {/* Mobile Only - NE GÖRMEK İSTERSİN */}
+            <h2 
+              className="block lg:hidden font-saira font-bold text-white mb-6"
+              style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', lineHeight: 1.04 }}
+            >
+              NE GÖRMEK İSTERSİN?
+            </h2>
           </div>
 
           {/* View Controls */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-wrap flex-shrink-0">
             {/* Search Toggle - Sharp Design System */}
             <button
               onClick={handleSearchToggle}
@@ -373,7 +382,7 @@ export default function NewsDiscovery() {
 
         {/* Load More Button */}
         {displayedNews.length > 0 && filteredNews.length > newsDiscoveryConfig.initialDisplayCount && (
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-8">
             <div className="cta-button-container">
               <button
                 onClick={handleToggleShowAll}
@@ -391,8 +400,101 @@ export default function NewsDiscovery() {
           </div>
         )}
 
+        {/* Mobile Only - Klipler Section */}
+        <div className="block lg:hidden mb-8 mt-24 w-full overflow-hidden">
+          <ClipsSection />
+        </div>
+
         </div>
       </div>
     </section>
   );
 }
+
+// Mobile Only Clips Section
+const ClipsSection = () => {
+  // Use mock data for clips - first 3 items
+  const clipsData = useMemo(() => {
+    return mockData.slice(0, 3).map(item => ({
+      id: item._id,
+      title: item.attributes.title,
+      img: item.attributes.img,
+      slug: item.attributes.slug
+    }));
+  }, []);
+
+  return (
+    <section className="w-full overflow-hidden">
+      {/* Klipler Title with Icon */}
+      <div className="flex items-center gap-4 mb-8 px-0">
+        <h2 
+          className="font-saira-condensed font-bold text-white"
+          style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: 0.89 }}
+        >
+          KLİPLER
+        </h2>
+        <Image
+          src="/icons/clip.svg"
+          alt=""
+          width={49}
+          height={29}
+          className="w-12 h-auto flex-shrink-0"
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Clips Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8 overflow-hidden">
+        {clipsData.map((clip) => (
+          <div key={clip.id} className="relative w-full overflow-hidden">
+            {/* Clip Image with Play Button */}
+            <div className="relative w-full h-0 pb-[56.25%] mb-4 overflow-hidden">
+              <Image
+                src={clip.img}
+                alt={clip.title}
+                fill
+                className="absolute inset-0 w-full h-full object-cover"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              
+              {/* Play Button Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-14 h-14">
+                  <Image
+                    src="/icons/play.svg"
+                    alt="Play clip"
+                    width={57}
+                    height={56}
+                    className="w-full h-full drop-shadow-lg"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Clip Title */}
+            <h3 className="font-saira font-normal text-base text-white leading-[1.2] w-full overflow-hidden">
+              {clip.title}
+            </h3>
+
+            {/* Link overlay */}
+            <Link 
+              href={`/blog/${clip.slug}`}
+              className="absolute inset-0"
+              aria-label={`${clip.title} klibini izle`}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Daha Fazla Gör Button */}
+      <div className="flex justify-center">
+        <div className="cta-button-container">
+          <button className="cta-button uppercase tracking-wide bg-white">
+            Daha Fazla Gör
+          </button>
+          <div className="cta-button-shadow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+  );
+};

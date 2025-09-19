@@ -6,6 +6,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import Image from 'next/image';
 import { useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -39,15 +40,15 @@ interface SideNewsCardProps {
 
 // Senior Level Component Composition Pattern
 const NewsBreadcrumb = () => (
-  <nav className="flex items-center space-x-2 text-sm font-saira font-normal text-ink-700" aria-label="Breadcrumb">
+  <nav className="hidden lg:flex items-center space-x-2 text-sm font-saira font-normal text-ink-700" aria-label="Breadcrumb">
     <Link href="/" className="cursor-pointer">
       ANA SAYFA
     </Link>
-    <span className="text-ink-500">{'>'}</span>
+    <ChevronRight className="w-4 h-4 text-ink-500" strokeWidth={2} />
     <Link href="/blog" className="cursor-pointer">
       BLOG
     </Link>
-    <span className="text-ink-500">{'>'}</span>
+    <ChevronRight className="w-4 h-4 text-ink-500" strokeWidth={2} />
     <span className="text-ink-700 font-bold truncate">
       LOREM IPSUM DOLOR ... AMET
     </span>
@@ -64,7 +65,7 @@ const FeaturedNewsCard = ({ news, isActive }: FeaturedNewsCardProps) => (
         alt={news.attributes.title}
         fill
         priority={isActive}
-        className="object-cover"
+        className="news-featured-image-responsive"
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 60vw"
       />
       
@@ -89,7 +90,8 @@ const FeaturedNewsCard = ({ news, isActive }: FeaturedNewsCardProps) => (
             alt="Play video"
             width={80}
             height={80}
-            className="w-full h-full drop-shadow-lg"
+            className="w-full h-full"
+            style={{ filter: 'none', textShadow: 'none', boxShadow: 'none' }}
           />
         </div>
       </div>
@@ -152,7 +154,7 @@ const NewsBackgroundLayers = () => (
     {/* Back Shape Background - SVG */}
     <div className="news-background-layer news-shape-svg">
       <Image
-        src="/slider_assets/back_shape.svg"
+        src="/images/back_shape.svg"
         alt=""
         fill
         className="object-cover"
@@ -178,7 +180,7 @@ const NewsPagination = ({ featuredNews, activeIndex, swiperInstance, onDotClick 
         key={index}
         onClick={() => onDotClick(index)}
         disabled={!swiperInstance}
-        className={`news-pagination-dot ${
+        className={`news-pagination-dot relative ${
           activeIndex === index
             ? 'news-pagination-dot--active'
             : 'news-pagination-dot--inactive'
@@ -226,7 +228,8 @@ export default function NewsSlider() {
 
   return (
     <section 
-      className="relative min-h-screen bg-brand-yellow overflow-hidden"
+      className="relative min-h-screen bg-brand-yellow overflow-hidden border-0 outline-0"
+      style={{ border: 'none', outline: 'none', boxShadow: 'none' }}
       role="region"
       aria-label="Haberler slider"
     >
@@ -234,8 +237,8 @@ export default function NewsSlider() {
       <NewsBackgroundLayers />
 
       {/* Content Container - Design System Architecture */}
-      <div className="news-content-container pt-20 lg:pt-28">
-        <div className="container mx-auto px-4 pb-24 lg:px-hero-gap-lg xl:px-hero-gap-xl">
+      <div className="news-content-container pt-20 lg:pt-28 border-0 outline-0" style={{ border: 'none', outline: 'none', boxShadow: 'none' }}>
+        <div className="container mx-auto px-4 lg:pb-24 lg:px-hero-gap-lg xl:px-hero-gap-xl border-0 outline-0" style={{ border: 'none', outline: 'none', boxShadow: 'none' }}>
           {/* Breadcrumb */}
           <div className="mb-8">
             <NewsBreadcrumb />
@@ -243,7 +246,7 @@ export default function NewsSlider() {
 
           {/* Page Title */}
           <div className="mb-12">
-            <h1 className="font-saira-condensed font-bold text-6xl lg:text-8xl xl:text-9xl leading-none text-black">
+            <h1 className="hidden lg:block font-saira-condensed font-bold text-6xl lg:text-8xl xl:text-9xl leading-none text-black">
               BLOG
             </h1>
           </div>
@@ -252,7 +255,7 @@ export default function NewsSlider() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16">
             {/* Main Slider - Left Side */}
             <div className="lg:col-span-8">
-              <div className="relative h-96 lg:h-[500px] xl:h-[600px]">
+              <div className="relative h-[280px] sm:h-[320px] md:h-[400px] lg:h-[500px] xl:h-[600px]">
                 <Swiper
                   modules={[Autoplay]}
                   spaceBetween={0}
@@ -271,7 +274,7 @@ export default function NewsSlider() {
                 >
                   {featuredNews.map((news, index) => (
                     <SwiperSlide key={news._id}>
-                      <FeaturedNewsCard 
+                     <FeaturedNewsCard 
                         news={news} 
                         isActive={index === activeIndex}
                       />
@@ -282,8 +285,8 @@ export default function NewsSlider() {
 
               {/* Description and Pagination - Design System Layout */}
               <div className="news-pagination-layout">
-                {/* Description - Left Side */}
-                <div className="flex-1 max-w-2xl">
+                {/* Description - Left Side - Fixed Height to Prevent Layout Shift */}
+                <div className="flex-1 max-w-2xl" style={{ minHeight: 'clamp(6rem, 12vh, 9rem)' }}>
                   <p className="news-description">
                     {featuredNews[activeIndex]?.attributes.desc}
                   </p>
@@ -302,8 +305,8 @@ export default function NewsSlider() {
             {/* Side News Cards - Right Side */}
             <div className="lg:col-span-4">
               <div className="space-y-6 lg:space-y-7">
-                {sideNews.map((news) => (
-                  <div key={news._id} className="relative">
+                {sideNews.map((news, index) => (
+                  <div key={news._id} className="relative" style={{ minHeight: '120px' }}>
                     <SideNewsCard news={news} />
                   </div>
                 ))}
@@ -313,8 +316,20 @@ export default function NewsSlider() {
         </div>
       </div>
 
-      {/* Bottom Tear Effect - Design System Component */}
-      <div className="news-tear-effect">
+      {/* Bottom Tear Effect - Mobile SVG */}
+      <div className="block lg:hidden w-full">
+        <Image
+          src="/images/mobil_tear.svg"
+          alt=""
+          width={428}
+          height={78}
+          className="w-full h-auto"
+          priority
+          aria-hidden="true"
+        />
+      </div>
+      
+      <div className="hidden lg:block news-tear-effect absolute">
         <Image
           src="/images/bottom-tear.png"
           alt=""

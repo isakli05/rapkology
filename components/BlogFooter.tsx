@@ -67,7 +67,7 @@ const blogFooterConfig: BlogFooterConfig = {
     leftSection: "lg:col-span-8 space-y-8",
     rightSection: "lg:col-span-4 lg:pt-[108px]", // Align with newsletter title level (logo mb + title spacing)
     spacing: {
-      section: "py-16 lg:py-24",
+      section: "py-8 lg:py-24",
       logo: "mb-8 lg:mb-12"
     },
     newsletter: {
@@ -113,8 +113,8 @@ export default function BlogFooter() {
             {/* Left Section - Logo + Newsletter */}
             <div className={blogFooterConfig.layout.leftSection}>
               
-              {/* Rapkology Logo */}
-              <div className={blogFooterConfig.layout.spacing.logo}>
+              {/* Rapkology Logo - Hidden on Mobile */}
+              <div className={`hidden lg:block ${blogFooterConfig.layout.spacing.logo}`}>
                 <Image
                   src={blogFooterConfig.logo.src}
                   alt={blogFooterConfig.logo.alt}

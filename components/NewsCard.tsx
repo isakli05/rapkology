@@ -23,22 +23,6 @@ interface NewsCardProps {
 export default function NewsCard({ news, priority = false, viewMode = 'double' }: NewsCardProps) {
   return (
     <article className="news-card group">
-      {/* Author Info */}
-      <div className="flex items-center gap-3 mb-4">
-        <div className="relative w-8 h-8 overflow-hidden flex-shrink-0">
-          <Image
-            src={news.author.avatar}
-            alt={news.author.name}
-            fill
-            className="object-cover"
-            sizes="32px"
-          />
-        </div>
-        <span className="font-saira font-normal text-sm text-white">
-          {news.author.name}
-        </span>
-      </div>
-
       {/* News Image - Sharp Corners */}
       <div className="news-card-image">
         <Image
@@ -49,6 +33,22 @@ export default function NewsCard({ news, priority = false, viewMode = 'double' }
           className="object-cover"
           sizes={viewMode === 'single' ? '100vw' : '(max-width: 768px) 100vw, 25vw'}
         />
+      </div>
+
+      {/* Author Info - Mobile Above Title */}
+      <div className="flex items-center gap-3 mb-4 lg:order-first">
+        <div className="relative w-8 h-8 overflow-hidden flex-shrink-0">
+          <Image
+            src={news.author.avatar}
+            alt={news.author.name}
+            fill
+            className="object-cover"
+            sizes="32px"
+          />
+        </div>
+        <span className="font-saira font-bold lg:font-normal text-sm text-white">
+          {news.author.name}
+        </span>
       </div>
 
       {/* Date Info - Figma Spec Typography */}

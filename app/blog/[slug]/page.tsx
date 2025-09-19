@@ -9,7 +9,7 @@ interface BlogDetailParams {
 }
 
 interface BlogDetailPageProps {
-  params: BlogDetailParams;
+  params: Promise<BlogDetailParams>;
 }
 
 interface BlogDetailData {
@@ -42,7 +42,8 @@ function getBlogPost(slug: string): BlogDetailData | null {
 export async function generateMetadata(
   { params }: BlogDetailPageProps
 ): Promise<Metadata> {
-  const post = getBlogPost(params.slug);
+  const { slug } = await params;
+  const post = getBlogPost(slug);
   
   if (!post) {
     return {
@@ -86,7 +87,7 @@ export async function generateMetadata(
       images: [ogImage],
     },
     alternates: {
-      canonical: `/blog/${params.slug}`,
+      canonical: `/blog/${slug}`,
     },
     robots: {
       index: true,
@@ -110,8 +111,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const post = getBlogPost(params.slug);
+export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
   
   // Handle 404 case
   if (!post) {
@@ -153,7 +155,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
   return (
     <BlogDetailContent 
       post={blogData}
-      slug={params.slug}
+      slug={slug}
     />
   );
 }
