@@ -267,12 +267,7 @@ export default function SocialFooter({ variant = 'homepage' }: SocialFooterProps
               ? () => handleFooterLinkClick(link)
               : (e) => { e.preventDefault(); handleFooterLinkClick(link); }
             }
-            className={`
-              ${socialFooterConfig.typography.footerLink}
-              ${socialFooterConfig.interactions.footerLink.base}
-              ${socialFooterConfig.interactions.footerLink.hover}
-              ${socialFooterConfig.interactions.transition}
-            `}
+            className="font-saira font-normal text-sm leading-none text-white hover:text-brand-yellow transition-colors duration-200"
           >
             {link.label}
           </Link>
