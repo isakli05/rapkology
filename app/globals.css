@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Swiper CSS - Centralized Import for Performance */
+@import 'swiper/css';
+@import 'swiper/css/autoplay';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
 /* Next.js App Router Scroll Optimization */
 html {
   scroll-behavior: auto !important; /* Optimize for App Router navigation with fixed navbar */

@@ -5,11 +5,9 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import Image from 'next/image';
 import { useState, useCallback, useEffect } from 'react';
-import { getSwiperConfig } from '@/lib/swiper-configs';
+// getSwiperConfig kaldırıldı - orijinal inline config kullanılacak
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/autoplay';
+// Swiper styles artık global CSS'de
 
 interface FavoriteItem {
   id: number;
@@ -313,10 +311,20 @@ export default function MonthlyFavorites() {
             <div className="favorites-right-section overflow-hidden">
               <div className="relative h-full flex justify-end items-center">
                 {/* Desktop Slider Container */}
-                <div className="desktop-monthly-favorites-swiper relative z-10">
+                <div className="desktop-monthly-favorites-swiper relative z-10 w-full max-w-lg">
                   <Swiper
                     id="monthly-favorites-swiper-desktop"
-                    {...getSwiperConfig('favoritesDesktop')}
+                    modules={[Autoplay, Navigation]}
+                    loop={true}
+                    speed={800}
+                    autoplay={{
+                      delay: 5000,
+                      disableOnInteraction: false,
+                    }}
+                    spaceBetween={20}
+                    slidesPerView={2.2}
+                    centeredSlides={false}
+                    width={200}
                     onSlideChange={(swiper) => {
                       // Desktop: sadece 3 meaningful position var (0,1,2)
                       const realIndex = swiper.realIndex % 3;
@@ -346,7 +354,7 @@ export default function MonthlyFavorites() {
                               fill
                               sizes="(max-width: 768px) 200px, 274px"
                               className="object-cover"
-                              priority={false} // MonthlyFavorites is below-the-fold, no preload needed
+                              priority={slideIndex < 3}
                             />
                           </div>
 
@@ -431,12 +439,22 @@ export default function MonthlyFavorites() {
 
         {/* MOBILE ONLY SLIDER */}
         {isMobile && (
-          <div className="w-full overflow-hidden mt-8">
+          <div className="w-full overflow-hidden mt-8 max-w-sm mx-auto">
             <div className="relative h-full w-full">
           
               <Swiper
                 id="monthly-favorites-swiper-mobile"
-                {...getSwiperConfig('favoritesMobile')}
+                modules={[Autoplay, Navigation]}
+                loop={true}
+                speed={800}
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                }}
+                spaceBetween={20}
+                slidesPerView={1}
+                centeredSlides={true}
+                width={320}
                 onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
                 onSwiper={handleSwiperInit}
                 className="overflow-visible"
@@ -462,7 +480,7 @@ export default function MonthlyFavorites() {
                           fill
                           className="object-cover"
                           sizes="calc(100vw - 3rem)"
-                          priority={false} // MonthlyFavorites is below-the-fold, no preload needed
+                          priority={slideIndex < 3}
                         />
                       </div>
 

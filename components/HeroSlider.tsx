@@ -7,8 +7,7 @@ import Image from 'next/image';
 import { useState, useCallback } from 'react';
 import { getSwiperConfig } from '@/lib/swiper-configs';
 
-// Import Swiper styles
-import 'swiper/css';
+// Swiper styles artık global CSS'de
 
 interface SlideData {
   id: number;

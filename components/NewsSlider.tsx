@@ -9,9 +9,7 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { getSwiperConfig } from '@/lib/swiper-configs';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
+// Swiper styles artık global CSS'de
 
 // Import mock data
 import mockData from '@/mock-data.json';

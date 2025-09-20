@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import BlogFooter from '@/components/BlogFooter';
-import NewsSlider from '@/components/NewsSlider';
+import NewsSliderWrapper from '@/components/NewsSliderWrapper';
 import NewsDiscovery from '@/components/NewsDiscovery';
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function HaberlerPage() {
       <Navbar />
       
       {/* News Hero Section */}
-      <NewsSlider />
+      <NewsSliderWrapper />
       
       {/* News Discovery Section */}
       <NewsDiscovery />
