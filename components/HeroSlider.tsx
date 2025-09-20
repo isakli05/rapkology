@@ -5,7 +5,7 @@ import { Autoplay } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import Image from 'next/image';
 import { useState, useCallback } from 'react';
-import { getSwiperConfig } from '@/lib/swiper-configs';
+// getSwiperConfig kaldırıldı - inline config kullanılacak
 
 // Swiper styles artık global CSS'de
 
@@ -74,7 +74,16 @@ export default function HeroSlider() {
     >
       <Swiper
         id="hero-slider"
-        {...getSwiperConfig('hero')}
+        modules={[Autoplay]}
+        loop={true}
+        speed={800}
+        autoplay={{
+          delay: 8000,
+          disableOnInteraction: false,
+        }}
+        spaceBetween={0}
+        slidesPerView={1}
+        centeredSlides={false}
         navigation={false} // override: navigation arrows handled separately
         onSlideChange={handleSlideChange}
         onSwiper={handleSwiperInit}

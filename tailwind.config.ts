@@ -5,6 +5,24 @@ const config: Config = {
     './app/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
   ],
+  safelist: [
+    // Critical button classes - production build'de korunacak
+    'cta-button',
+    'cta-button-hero', 
+    'cta-button-shadow',
+    'banner-button',
+    'banner-button-primary',
+    'banner-button-secondary',
+    // Brand colors
+    'bg-brand-yellow',
+    'text-brand-yellow',
+    'border-brand-yellow',
+    'ring-brand-yellow',
+    // Responsive classes
+    'lg:block',
+    'lg:hidden',
+    'sm:text-5xl',
+  ],
   theme: {
     extend: {
       container: {
