@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Button from '@/components/ui/Button';
 
 const navLinks = [
   { href: '/haberler', label: 'HABERLER', active: true },
@@ -17,11 +18,18 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Senior Level Pattern - Route-based Styling with Mobile Override
-  const navbarVariant = pathname === '/' ? 'navbar-glassmorphism lg:navbar-glassmorphism navbar-solid' : 'navbar-solid';
+  // Senior Level Pattern - Route-based Styling with Desktop-only Glassmorphism
+  const navbarVariant = pathname === '/' 
+    ? 'navbar-solid lg:navbar-glassmorphism' // Mobile: solid, Desktop: glassmorphism only on homepage
+    : 'navbar-solid'; // All other pages: always solid
+
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-nav ${navbarVariant}`}>
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-nav ${navbarVariant}`}
+      role="banner"
+      aria-label="Ana navigasyon"
+    >
       <div className="container mx-auto px-4 lg:px-hero-gap-lg xl:px-hero-gap-xl">
         <div className="flex items-center h-16 lg:h-20">
           {/* Logo */}
@@ -76,12 +84,11 @@ export default function Navbar() {
               </svg>
             </button>
 
-            {/* Login Button */}
-            <Link
-              href="/giris"
-              className="font-saira font-bold text-sm leading-none text-center bg-white text-black hover:bg-brand-yellow hover:text-black transition-colors duration-200 flex items-center justify-center px-4 lg:px-6 py-2 lg:py-2.5 min-w-28 lg:min-w-32 whitespace-nowrap"
-            >
-              GİRİŞ YAP
+            {/* Login Button - Unified Button Component */}
+            <Link href="/giris" className="whitespace-nowrap">
+              <Button variant="secondary" size="md">
+                GİRİŞ YAP
+              </Button>
             </Link>
           </div>
 
@@ -92,7 +99,9 @@ export default function Navbar() {
               type="button"
               className="text-white hover:text-brand-yellow focus:outline-none focus:text-brand-yellow p-2 rounded-sm transition-colors duration-200"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Menüyü aç"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation-menu"
+              aria-label={isMobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
             >
               {isMobileMenuOpen ? (
                 <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -113,7 +122,12 @@ export default function Navbar() {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-900">
+          <div 
+            id="mobile-navigation-menu"
+            className="lg:hidden border-t border-gray-900"
+            role="menu"
+            aria-labelledby="mobile-menu-button"
+          >
             <div className="pt-4 pb-6 space-y-4">
               {/* Mobile Navigation Links */}
               <div className="space-y-3">
@@ -132,14 +146,20 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Mobile Login Button */}
+              {/* Mobile Login Button - Unified Button Component */}
               <div className="pt-4">
-                <Link
+                <Link 
                   href="/giris"
-                  className="w-full font-saira font-bold text-sm leading-none text-center bg-white text-black hover:bg-brand-yellow hover:text-black transition-colors duration-200 flex items-center justify-center py-3 min-h-12"
                   onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full block"
                 >
-                  GİRİŞ YAP
+                  <Button 
+                    variant="secondary" 
+                    size="lg" 
+                    className="w-full"
+                  >
+                    GİRİŞ YAP
+                  </Button>
                 </Link>
               </div>
             </div>

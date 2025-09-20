@@ -11,5 +11,5 @@ export const sairaCondensed = Saira_Condensed({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
   variable: '--font-saira-condensed',
-  weight: ['300', '700'],
+  weight: ['300', '400', '700'], // 400 weight eklendi - font-normal desteği için
 });

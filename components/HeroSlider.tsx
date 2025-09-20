@@ -5,6 +5,7 @@ import { Autoplay } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import Image from 'next/image';
 import { useState, useCallback } from 'react';
+import { getSwiperConfig } from '@/lib/swiper-configs';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -74,16 +75,8 @@ export default function HeroSlider() {
     >
       <Swiper
         id="hero-slider"
-        modules={[Autoplay]}
-        spaceBetween={0}
-        slidesPerView={1}
-        navigation={false}
-        autoplay={{
-          delay: 8000,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        speed={1000}
+        {...getSwiperConfig('hero')}
+        navigation={false} // override: navigation arrows handled separately
         onSlideChange={handleSlideChange}
         onSwiper={handleSwiperInit}
         className="h-full w-full"
@@ -118,7 +111,7 @@ export default function HeroSlider() {
                   {/* CTA Button - Mobile */}
                   <div className="cta-button-container">
                     <button 
-                      className="cta-button"
+                      className="cta-button-hero"
                       aria-describedby={`slide-${slide.id}-desc-mobile`}
                       title={`${slide.title} - ${slide.buttonText}`}
                     >
@@ -193,7 +186,7 @@ export default function HeroSlider() {
                     <div className="cta-button-container">
                       {/* Button Element */}
                       <button 
-                        className="cta-button"
+                        className="cta-button-hero"
                         aria-describedby={`slide-${slide.id}-desc`}
                         title={`${slide.title} - ${slide.buttonText}`}
                       >

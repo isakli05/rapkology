@@ -6,6 +6,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import NewsCard from './NewsCard';
 import CategoryTabs from './CategoryTabs';
+import type { ViewMode } from '@/types/common';
+import Button, { ButtonShadow } from './ui/Button';
+import ClipsSection from './news/ClipsSection';
 import mockData from '../mock-data.json';
 
 interface NewsItem {
@@ -78,8 +81,6 @@ const transformMockDataToNews = (data: any[]): NewsItem[] => {
     };
   });
 };
-
-type ViewMode = 'single' | 'double';
 
 export default function NewsDiscovery() {
   const [activeCategory, setActiveCategory] = useState<string>('Yabancı Rap');
@@ -240,9 +241,9 @@ export default function NewsDiscovery() {
             </h1>
             
             {/* Mobile Only - NE GÖRMEK İSTERSİN */}
+            {/* Migrated inline fontSize to text-body-lg token */}
             <h2 
-              className="block lg:hidden font-saira font-bold text-white mb-6"
-              style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', lineHeight: 1.04 }}
+              className="block lg:hidden font-saira font-bold text-white mb-6 text-body-lg"
             >
               NE GÖRMEK İSTERSİN?
             </h2>
@@ -380,22 +381,24 @@ export default function NewsDiscovery() {
           </div>
         )}
 
-        {/* Load More Button */}
+        {/* Load More Button - Unified Button Component */}
         {displayedNews.length > 0 && filteredNews.length > newsDiscoveryConfig.initialDisplayCount && (
           <div className="flex justify-center mb-8">
             <div className="cta-button-container">
-              <button
+              <Button
+                variant="primary"
+                size="md"
                 onClick={handleToggleShowAll}
-                className="cta-button uppercase tracking-wide bg-white"
+                className="uppercase tracking-wide"
                 aria-expanded={showAllNews}
                 aria-controls="news-grid"
                 title={showAllNews ? newsDiscoveryConfig.loadMore.buttonText.hide : newsDiscoveryConfig.loadMore.buttonText.show}
               >
                 {showAllNews ? newsDiscoveryConfig.loadMore.buttonText.hide : newsDiscoveryConfig.loadMore.buttonText.show}
-              </button>
+              </Button>
               
               {/* Shadow Element */}
-              <div className="cta-button-shadow" aria-hidden="true"></div>
+              <ButtonShadow />
             </div>
           </div>
         )}
@@ -411,90 +414,4 @@ export default function NewsDiscovery() {
   );
 }
 
-// Mobile Only Clips Section
-const ClipsSection = () => {
-  // Use mock data for clips - first 3 items
-  const clipsData = useMemo(() => {
-    return mockData.slice(0, 3).map(item => ({
-      id: item._id,
-      title: item.attributes.title,
-      img: item.attributes.img,
-      slug: item.attributes.slug
-    }));
-  }, []);
-
-  return (
-    <section className="w-full overflow-hidden">
-      {/* Klipler Title with Icon */}
-      <div className="flex items-center gap-4 mb-8 px-0">
-        <h2 
-          className="font-saira-condensed font-bold text-white"
-          style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: 0.89 }}
-        >
-          KLİPLER
-        </h2>
-        <Image
-          src="/icons/clip.svg"
-          alt=""
-          width={49}
-          height={29}
-          className="w-12 h-auto flex-shrink-0"
-          aria-hidden="true"
-        />
-      </div>
-
-      {/* Clips Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8 overflow-hidden">
-        {clipsData.map((clip) => (
-          <div key={clip.id} className="relative w-full overflow-hidden">
-            {/* Clip Image with Play Button */}
-            <div className="relative w-full h-0 pb-[56.25%] mb-4 overflow-hidden">
-              <Image
-                src={clip.img}
-                alt={clip.title}
-                fill
-                className="absolute inset-0 w-full h-full object-cover"
-                sizes="(max-width: 640px) 100vw, 33vw"
-              />
-              
-              {/* Play Button Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-14 h-14">
-                  <Image
-                    src="/icons/play.svg"
-                    alt="Play clip"
-                    width={57}
-                    height={56}
-                    className="w-full h-full drop-shadow-lg"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Clip Title */}
-            <h3 className="font-saira font-normal text-base text-white leading-[1.2] w-full overflow-hidden">
-              {clip.title}
-            </h3>
-
-            {/* Link overlay */}
-            <Link 
-              href={`/blog/${clip.slug}`}
-              className="absolute inset-0"
-              aria-label={`${clip.title} klibini izle`}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Daha Fazla Gör Button */}
-      <div className="flex justify-center">
-        <div className="cta-button-container">
-          <button className="cta-button uppercase tracking-wide bg-white">
-            Daha Fazla Gör
-          </button>
-          <div className="cta-button-shadow" aria-hidden="true"></div>
-        </div>
-      </div>
-    </section>
-  );
-};
+// ClipsSection component now extracted to separate file - components/news/ClipsSection.tsx

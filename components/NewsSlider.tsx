@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import { getSwiperConfig } from '@/lib/swiper-configs';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -257,16 +258,8 @@ export default function NewsSlider() {
             <div className="lg:col-span-8">
               <div className="relative h-[280px] sm:h-[320px] md:h-[400px] lg:h-[500px] xl:h-[600px]">
                 <Swiper
-                  modules={[Autoplay]}
-                  spaceBetween={0}
-                  slidesPerView={1}
-                  navigation={false}
-                  autoplay={{
-                    delay: 6000,
-                    disableOnInteraction: false,
-                  }}
-                  loop={true}
-                  speed={800}
+                  {...getSwiperConfig('news')}
+                  navigation={false} // override: no navigation arrows
                   onSlideChange={handleSlideChange}
                   onSwiper={handleSwiperInit}
                   className="h-full w-full"

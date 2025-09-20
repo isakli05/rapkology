@@ -5,6 +5,7 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import Image from 'next/image';
 import { useState, useCallback, useEffect } from 'react';
+import { getSwiperConfig } from '@/lib/swiper-configs';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -108,7 +109,7 @@ const monthlyFavoritesConfig: MonthlyFavoritesConfig = {
       rightColumns: 7
     },
     typography: {
-      titleSize: "text-[60px] lg:text-[80px]",
+      titleSize: "text-display-md lg:text-display-xl", // migrated from text-[60px] lg:text-[80px]
       cardTitle: "text-xl lg:text-2xl",
       ranking: "text-sm lg:text-base"
     }
@@ -315,20 +316,7 @@ export default function MonthlyFavorites() {
                 <div className="desktop-monthly-favorites-swiper relative z-10">
                   <Swiper
                     id="monthly-favorites-swiper-desktop"
-                    modules={[Autoplay, Navigation]}
-                    spaceBetween={15}
-                    slidesPerView={2.5}
-                    centeredSlides={false}
-                    autoplay={{
-                      delay: 5000,
-                      disableOnInteraction: false,
-                      pauseOnMouseEnter: false,
-                      stopOnLastSlide: false
-                    }}
-                    allowSlideNext={true}
-                    allowSlidePrev={true}
-                    loop={true}
-                    speed={monthlyFavoritesConfig.swiper.speed}
+                    {...getSwiperConfig('favoritesDesktop')}
                     onSlideChange={(swiper) => {
                       // Desktop: sadece 3 meaningful position var (0,1,2)
                       const realIndex = swiper.realIndex % 3;
@@ -447,17 +435,7 @@ export default function MonthlyFavorites() {
           
               <Swiper
                 id="monthly-favorites-swiper-mobile"
-                modules={[Autoplay, Navigation]}
-                spaceBetween={20}
-                slidesPerView={1}
-                centeredSlides={true}
-                autoplay={{
-                  delay: 4000,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: false
-                }}
-                loop={true}
-                speed={monthlyFavoritesConfig.swiper.speed}
+                {...getSwiperConfig('favoritesMobile')}
                 onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
                 onSwiper={handleSwiperInit}
                 className="overflow-visible"

@@ -20,7 +20,7 @@
     @apply relative z-10 inline-flex items-center justify-center;
     @apply px-8 py-4 min-w-36 min-h-12;
     @apply font-saira font-bold text-sm leading-none;
-    @apply text-black bg-brand-yellow;
+    @apply text-black bg-white;
     @apply border-none cursor-pointer;
     @apply transition-all duration-300;
     @apply focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2;
@@ -38,7 +38,7 @@
   }
 
   .cta-button:hover {
-    background-color: #e6d743; /* Slightly darker brand yellow */
+    background-color: #f0f0f0; /* Slightly gray white */
     transform: translateZ(0) translateY(-2px);
   }
 
@@ -52,6 +52,47 @@
   }
 
   .cta-button:active + .cta-button-shadow {
+    top: 3px;
+    left: 5px;
+  }
+
+  /* Hero CTA Button - Yellow variant for HeroSlider */
+  .cta-button-hero {
+    @apply relative z-10 inline-flex items-center justify-center;
+    @apply px-8 py-4 min-w-36 min-h-12;
+    @apply font-saira font-bold text-sm leading-none;
+    @apply text-black bg-brand-yellow;
+    @apply border-none cursor-pointer;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2;
+    
+    /* Custom clip path */
+    clip-path: polygon(0 5%, 100% 0%, 91% 100%, 7% 92%);
+    
+    /* Performance optimizations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .cta-button-hero:hover {
+    background-color: #e6d743; /* Slightly darker brand yellow */
+    transform: translateZ(0) translateY(-2px);
+  }
+
+  .cta-button-hero:hover + .cta-button-shadow {
+    top: 7px;
+    left: 17px;
+  }
+
+  .cta-button-hero:active {
+    transform: translateZ(0) translateY(1px);
+  }
+
+  .cta-button-hero:active + .cta-button-shadow {
     top: 3px;
     left: 5px;
   }
@@ -662,18 +703,47 @@
     @apply relative z-news-content;
   }
 
-  /* Navbar Variants - Senior Level Architecture */
-  .navbar-glassmorphism {
-    @apply bg-black/50 backdrop-blur-nav;
+  /* Navbar Variants - Maximum Specificity Override */
+  nav[role="banner"][aria-label="Ana navigasyon"].navbar-glassmorphism {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0px, rgba(0, 0, 0, 0.4) 30px, rgba(0, 0, 0, 0.25) 100%) !important;
+    backdrop-filter: blur(16px) saturate(200%) brightness(120%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(200%) brightness(120%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1) !important;
   }
 
-  .navbar-solid {
-    @apply bg-black;
+  nav[role="banner"][aria-label="Ana navigasyon"].navbar-solid {
+    background-color: rgb(0, 0, 0) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Maximum Specificity Responsive Override */
+  @media screen and (min-width: 1024px) {
+    nav[role="banner"][aria-label="Ana navigasyon"].lg\:navbar-glassmorphism {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0px, rgba(0, 0, 0, 0.4) 30px, rgba(0, 0, 0, 0.25) 100%) !important;
+      backdrop-filter: blur(16px) saturate(200%) brightness(120%) !important;
+      -webkit-backdrop-filter: blur(16px) saturate(200%) brightness(120%) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1) !important;
+    }
   }
 
   /* Category Tabs - Horizontal Filter System */
   .category-tabs-container {
     @apply w-full overflow-x-auto;
+  }
+
+  /* Category Scroll Container - Hide Scrollbar */
+  .category-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .category-scroll-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   .category-tab {

@@ -91,11 +91,27 @@ const config: Config = {
         'nav': '12px',
       },
       fontSize: {
-        // News Slider Typography Design System
+        // UNIFIED TYPOGRAPHY DESIGN SYSTEM
+        // Display Sizes - Ana başlıklar
+        'display-xl': ['clamp(3.75rem, 8vw, 5rem)', { lineHeight: '0.89' }], // 60px -> 80px
+        'display-lg': ['clamp(3rem, 6vw, 4rem)', { lineHeight: '0.89' }],     // 48px -> 64px  
+        'display-md': ['clamp(2.5rem, 5vw, 3.75rem)', { lineHeight: '0.89' }], // 40px -> 60px
+        
+        // Heading Sizes - Alt başlıklar
+        'heading-xl': ['clamp(1.75rem, 4vw, 2.25rem)', { lineHeight: '1.04' }], // 28px -> 36px
+        'heading-lg': ['clamp(1.25rem, 3vw, 1.75rem)', { lineHeight: '1.04' }],  // 20px -> 28px (25px replacement)
+        'heading-md': ['clamp(1.125rem, 2.5vw, 1.25rem)', { lineHeight: '1.04' }], // 18px -> 20px
+        
+        // Body Sizes - İçerik metinleri
+        'body-lg': ['clamp(1.125rem, 2vw, 1.25rem)', { lineHeight: '1.2', letterSpacing: '0.015em' }],
+        'body-base': ['clamp(1rem, 1.5vw, 1.125rem)', { lineHeight: '1.2', letterSpacing: '0.015em' }],
+        'body-sm': ['clamp(0.875rem, 1.25vw, 1rem)', { lineHeight: '1.2', letterSpacing: '0.015em' }],
+        
+        // News Slider Typography Design System - LEGACY (backward compatibility)
         'news-fluid-base': ['clamp(1.125rem, 1.5vw, 1.5rem)', { lineHeight: '1.25' }],
         'news-fluid-lg': ['clamp(1.25rem, 2vw, 1.75rem)', { lineHeight: '1.2' }],
         'news-fluid-xl': ['clamp(1.5rem, 2.5vw, 2rem)', { lineHeight: '1.1' }],
-        // News Card Typography Design System - Figma Spec Responsive
+        // News Card Typography Design System - LEGACY (backward compatibility)
         'news-date': ['clamp(0.875rem, 1.2vw, 1rem)', { lineHeight: '1.2', letterSpacing: '0.015em' }],
         'news-title': ['clamp(1.125rem, 1.5vw, 1.25rem)', { lineHeight: '1.04', letterSpacing: '0em' }],
         'news-link': ['clamp(0.875rem, 1.2vw, 1rem)', { lineHeight: '1.2', letterSpacing: '0.015em' }],

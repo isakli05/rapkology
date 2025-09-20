@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState, useCallback } from 'react';
 import { TrendingUp } from 'lucide-react';
+import Button, { ButtonShadow } from '@/components/ui/Button';
 
 interface TrendItem {
   id: number;
@@ -143,7 +144,7 @@ export default function Trends() {
         
         {/* Section Header - Design System Typography */}
         <div className="flex items-start justify-center lg:justify-start mb-12 lg:mb-16">
-          <h2 className="font-saira-condensed font-bold text-[60px] leading-[0.89] text-white flex items-center gap-4">
+          <h2 className="font-saira-condensed font-bold text-display-md leading-[0.89] text-white flex items-center gap-4"> {/* migrated from text-[60px] */}
             {trendsConfig.title}
             <TrendingUp 
               className="w-8 h-8 lg:w-10 lg:h-10 text-brand-yellow" 
@@ -171,7 +172,7 @@ export default function Trends() {
                 {/* Trend Number - Design System Typography */}
                 <div className="flex-shrink-0">
                   <span 
-                    className="font-saira-condensed font-bold text-[60px] leading-[0.89] text-ink-700"
+                    className="font-saira-condensed font-bold text-display-md leading-[0.89] text-ink-700" // migrated from text-[60px]
                     aria-label={`Trend numarası ${trend.number}`}
                   >
                     {trend.number}
@@ -200,7 +201,7 @@ export default function Trends() {
                   {/* Trend Title - Clickable with hover effect */}
                   <h3 
                     id={`trend-${trend.id}-title`}
-                    className="font-saira-condensed font-bold text-[25px] leading-[1.04] uppercase text-white mb-4 group-hover:text-brand-yellow hover:text-brand-yellow cursor-pointer transition-colors duration-200"
+                    className="font-saira-condensed font-bold text-heading-lg leading-[1.04] uppercase text-white mb-4 group-hover:text-brand-yellow hover:text-brand-yellow cursor-pointer transition-colors duration-200" // migrated from text-[25px]
                   >
                     {trend.title}
                   </h3>
@@ -222,22 +223,24 @@ export default function Trends() {
           ))}
         </div>
 
-        {/* Show All Button - Design System Component (Same as HeroSlider CTA) */}
+        {/* Show All Button - Unified Button Component */}
         <div className="flex justify-center">
           <div className="cta-button-container">
-            <button
+            <Button
+              variant="primary"
+              size="md"
               onClick={handleToggleShowAll}
-              className="cta-button uppercase tracking-wide bg-white"
+              className="uppercase tracking-wide"
               aria-expanded={showAll}
               aria-controls="trends-grid"
               aria-describedby="show-all-desc"
               title={showAll ? trendsConfig.showAllButton.hide : trendsConfig.showAllButton.show}
             >
               {showAll ? trendsConfig.showAllButton.hide : trendsConfig.showAllButton.show}
-            </button>
+            </Button>
             
             {/* Shadow Element */}
-            <div className="cta-button-shadow" aria-hidden="true"></div>
+            <ButtonShadow />
           </div>
         </div>
 

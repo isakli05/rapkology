@@ -1,6 +1,8 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, memo } from 'react';
+import type { ComponentConfig } from '@/types/config';
+import { createLayoutConfig, createTypographyConfig, createInteractionConfig } from '@/types/config';
 
 interface CategoryTagsProps {
   title: string;
@@ -9,61 +11,45 @@ interface CategoryTagsProps {
   onCategoryChange: (category: string) => void;
 }
 
-interface CategoryTagsConfig {
-  layout: {
-    container: string;
-    tagsGrid: string;
-    spacing: string;
-  };
-  typography: {
-    title: string;
-    tag: string;
-  };
-  interactions: {
+interface CategoryTagsConfig extends ComponentConfig {
+  tags: {
+    grid: string;
     tag: {
       base: string;
       active: string;
       hover: string;
-      transition: string;
     };
   };
-  accessibility: {
-    sectionRole: string;
-    sectionLabel: string;
-    tagRole: string;
-    tagStateLabel: (category: string, isActive: boolean) => string;
-  };
+  tagStateLabel: (category: string, isActive: boolean) => string;
 }
 
-// Design System Configuration - Enterprise Pattern
+// Design System Configuration - Standardized Pattern
 const categoryTagsConfig: CategoryTagsConfig = {
-  layout: {
-    container: "space-y-6",
-    tagsGrid: "flex flex-wrap gap-3",
-    spacing: "mb-6"
-  },
-  typography: {
-    title: "font-saira-condensed font-bold text-[40px] leading-[1.04] text-white",
+  layout: createLayoutConfig("space-y-6", "mb-6"),
+  typography: createTypographyConfig({
+    title: "font-saira-condensed font-bold text-display-md leading-[1.04] text-white", // migrated from text-[40px]
     tag: "font-saira font-normal text-sm leading-none text-center"
-  },
-  interactions: {
-    tag: {
-      base: "px-4 py-2 border border-ink-500 cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black",
-      active: "bg-brand-yellow text-black border-brand-yellow",
-      hover: "hover:bg-brand-yellow hover:text-black hover:border-brand-yellow",
-      transition: "transition-all duration-200"
-    }
-  },
+  }),
+  interactions: createInteractionConfig("transition-all duration-200", {
+    focus: "focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 focus:ring-offset-black"
+  }),
   accessibility: {
     sectionRole: "region",
-    sectionLabel: "Kategori filtreleri",
-    tagRole: "button",
-    tagStateLabel: (category: string, isActive: boolean) => 
-      `${category} kategorisi${isActive ? ' - şu anda seçili' : ' - seçmek için tıklayın'}`
-  }
+    sectionLabel: "Kategori filtreleri"
+  },
+  tags: {
+    grid: "flex flex-wrap gap-3",
+    tag: {
+      base: "px-4 py-2 border border-ink-500 cursor-pointer",
+      active: "bg-brand-yellow text-black border-brand-yellow",
+      hover: "hover:bg-brand-yellow hover:text-black hover:border-brand-yellow"
+    }
+  },
+  tagStateLabel: (category: string, isActive: boolean) => 
+    `${category} kategorisi${isActive ? ' - şu anda seçili' : ' - seçmek için tıklayın'}`
 };
 
-export default function CategoryTags({ 
+const CategoryTags = memo(function CategoryTags({ 
   title, 
   categories, 
   activeCategory, 
@@ -89,7 +75,7 @@ export default function CategoryTags({
 
       {/* Category Tags Grid - Design System Layout */}
       <div 
-        className={categoryTagsConfig.layout.tagsGrid}
+        className={categoryTagsConfig.tags.grid}
         role="group"
         aria-label="Kategori seçenekleri"
       >
@@ -100,16 +86,17 @@ export default function CategoryTags({
             <button
               key={category}
               onClick={() => handleCategoryClick(category)}
-              role={categoryTagsConfig.accessibility.tagRole}
+              role="button"
               aria-pressed={isActive}
-              aria-label={categoryTagsConfig.accessibility.tagStateLabel(category, isActive)}
+              aria-label={categoryTagsConfig.tagStateLabel(category, isActive)}
               className={`
                 ${categoryTagsConfig.typography.tag}
-                ${categoryTagsConfig.interactions.tag.base}
-                ${categoryTagsConfig.interactions.tag.transition}
+                ${categoryTagsConfig.tags.tag.base}
+                ${categoryTagsConfig.interactions?.transition}
+                ${categoryTagsConfig.interactions?.focus}
                 ${isActive 
-                  ? categoryTagsConfig.interactions.tag.active
-                  : `text-white ${categoryTagsConfig.interactions.tag.hover}`
+                  ? categoryTagsConfig.tags.tag.active
+                  : `text-white ${categoryTagsConfig.tags.tag.hover}`
                 }
               `}
               tabIndex={0}
@@ -122,4 +109,6 @@ export default function CategoryTags({
 
     </section>
   );
-}
+});
+
+export default CategoryTags;

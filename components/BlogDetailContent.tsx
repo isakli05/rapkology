@@ -7,6 +7,9 @@ import { Eye, Heart, MessageCircle, TrendingUp, ChevronRight } from 'lucide-reac
 import Navbar from './Navbar';
 import Newsletter from './Newsletter';
 import SocialFooter from './SocialFooter';
+import Button, { ButtonShadow } from './ui/Button';
+import RelatedContent from './blog/RelatedContent';
+import MiniTrends from './blog/MiniTrends';
 import mockData from '../mock-data.json';
 
 // Type Definitions - Enterprise Pattern
@@ -218,168 +221,8 @@ const EngagementStats = ({
   </div>
 );
 
-// Related Content Component - Design System
-const RelatedContent = () => {
-  // Get related posts from mock data (first 3)
-  const relatedPosts: RelatedPost[] = useMemo(() => {
-    return mockData.slice(0, 3).map(item => ({
-      id: item._id,
-      title: item.attributes.title,
-      slug: item.attributes.slug,
-      coverImage: item.attributes.img
-    }));
-  }, []);
 
-  return (
-    <section className="mb-12 lg:mb-16" aria-label={blogDetailConfig.accessibility.relatedLabel}>
-      {/* Section Title - Design System Typography */}
-      <h2 className={`${blogDetailConfig.typography.relatedTitle} mb-8 lg:mb-12 mt-16 lg:mt-24`} 
-          style={{ fontSize: 'clamp(2.5rem, 4vw, 3.75rem)' }}>
-        DAHA FAZLA İÇERİK
-      </h2>
-
-      {/* Related Posts List */}
-      <div className="space-y-6">
-        {relatedPosts.map((post, index) => (
-          <div key={post.id}>
-            <Link 
-              href={`/blog/${post.slug}`}
-              className="flex gap-4 lg:gap-6 group hover:opacity-80 transition-opacity duration-200"
-            >
-              {/* Post Image */}
-              <div className="flex-shrink-0 relative w-20 h-16 lg:w-24 lg:h-20 bg-ink-900 rounded overflow-hidden">
-                <Image
-                  src={post.coverImage}
-                  alt={post.title}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 80px, 96px"
-                />
-              </div>
-
-              {/* Post Title */}
-              <div className="flex-1 flex items-center">
-                <h3 className={blogDetailConfig.typography.relatedItemTitle}>
-                  {post.title}
-                </h3>
-              </div>
-            </Link>
-
-            {/* Divider - Not for last item */}
-            {index < relatedPosts.length - 1 && (
-              <div className="mt-6 border-t border-ink-700" aria-hidden="true" />
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
-
-// Mini Trends Component - Modified for Blog Detail
-const MiniTrends = () => {
-  const [showAll, setShowAll] = useState<boolean>(false);
-
-  // Use first 8 items from mock data for trends
-  const trendsData = useMemo(() => {
-    return mockData.slice(0, 8).map((item, index) => ({
-      id: item._id,
-      number: (index + 1).toString().padStart(2, '0'),
-      title: item.attributes.title,
-      author: {
-        name: item.attributes.authors[0] || 'Rapkology',
-        avatar: index % 2 === 0 ? '/images/rapci_dayi.png' : '/images/rapci_abla.png'
-      }
-    }));
-  }, []);
-
-  const displayedTrends = showAll 
-    ? trendsData 
-    : trendsData.slice(0, blogDetailConfig.trends.showCount);
-
-  const handleToggleShowAll = useCallback(() => {
-    setShowAll(prev => !prev);
-  }, []);
-
-  return (
-    <section className="mb-12 lg:mb-16">
-      {/* Trends Title */}
-      <div className="flex items-start justify-center lg:justify-start mb-8 lg:mb-12">
-        <h2 className={`${blogDetailConfig.typography.relatedTitle} flex items-center gap-4 mt-16 lg:mt-24`}
-            style={{ fontSize: 'clamp(2.5rem, 4vw, 3.75rem)' }}>
-          TRENDLER
-          <TrendingUp 
-            className="w-8 h-8 lg:w-10 lg:h-10 text-brand-yellow" 
-            strokeWidth={2}
-            aria-hidden="true"
-          />
-        </h2>
-      </div>
-
-      {/* Trends Grid - 2x2 Layout */}
-      <div className={blogDetailConfig.trends.grid.initial}>
-        {displayedTrends.map((trend) => (
-          <article key={trend.id} className="group">
-            <div className="flex gap-4 lg:gap-6">
-              {/* Trend Number */}
-              <div className="flex-shrink-0">
-                <span className="font-saira-condensed font-bold text-[60px] leading-[0.89] text-ink-700">
-                  {trend.number}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 pt-2">
-                {/* Author */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="relative w-8 h-8 rounded-full overflow-hidden">
-                    <Image
-                      src={trend.author.avatar}
-                      alt={trend.author.name}
-                      fill
-                      className="object-cover"
-                      sizes="32px"
-                    />
-                  </div>
-                  <span className="font-saira font-normal text-base text-white">
-                    {trend.author.name}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3 className="font-saira-condensed font-bold text-[25px] leading-[1.04] uppercase text-white mb-4 group-hover:text-brand-yellow transition-colors duration-200 cursor-pointer">
-                  {trend.title}
-                </h3>
-
-                {/* Divider */}
-                <div className="border-t border-ink-700 mb-4"></div>
-
-                {/* Read More */}
-                <button className="font-saira font-normal text-base text-white hover:text-brand-yellow transition-colors duration-200">
-                  Daha Fazla Oku
-                </button>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      {/* Show All Button - Same CTA Design */}
-      <div className="flex justify-center mt-8 lg:mt-12">
-        <div className="cta-button-container">
-          <button
-            onClick={handleToggleShowAll}
-            className="cta-button uppercase tracking-wide bg-white"
-            aria-expanded={showAll}
-          >
-            {showAll ? 'Daha Az Göster' : 'Tümünü Gör'}
-          </button>
-          <div className="cta-button-shadow" aria-hidden="true"></div>
-        </div>
-      </div>
-    </section>
-  );
-};
+// MiniTrends component now extracted to separate file - components/blog/MiniTrends.tsx
 
 export default function BlogDetailContent({ post }: BlogDetailContentProps) {
   // Newsletter handler
@@ -409,25 +252,25 @@ export default function BlogDetailContent({ post }: BlogDetailContentProps) {
               <ViewCounter count={post.engagement.viewCount} />
 
               {/* Blog Title - Design System Responsive Typography */}
+              {/* Migrated inline fontSize to text-display-md token */}
               <h1 
-                className={blogDetailConfig.typography.title}
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)' }}
+                className={`${blogDetailConfig.typography.title} text-display-md`}
               >
                 {post.title}
               </h1>
 
               {/* Blog Excerpt/Summary - Design System Typography */}
+              {/* Migrated inline fontSize to text-heading-lg token */}
               <div 
-                className={`${blogDetailConfig.typography.excerpt} my-6 lg:my-8`}
-                style={{ fontSize: 'clamp(1.25rem, 2vw, 1.5rem)' }}
+                className={`${blogDetailConfig.typography.excerpt} my-6 lg:my-8 text-heading-lg`}
               >
                 {post.excerpt}
               </div>
 
               {/* Blog Content - Design System Typography */}
+              {/* Migrated inline fontSize to text-body-base token */}
               <div 
-                className={`${blogDetailConfig.typography.content} prose prose-invert max-w-none`}
-                style={{ fontSize: 'clamp(1rem, 1.2vw, 1.125rem)' }}
+                className={`${blogDetailConfig.typography.content} prose prose-invert max-w-none text-body-base`}
               >
                 {/* Cover Image - Full Width */}
                 <div className="relative w-full aspect-video mb-8 lg:mb-12 group cursor-pointer">
@@ -469,10 +312,10 @@ export default function BlogDetailContent({ post }: BlogDetailContentProps) {
                 commentCount={post.engagement.commentCount}
               />
 
-              {/* Related Content */}
+              {/* Related Content - Now extracted component */}
               <RelatedContent />
 
-              {/* Mini Trends */}
+              {/* Mini Trends - Now extracted component */}
               <MiniTrends />
 
             </article>

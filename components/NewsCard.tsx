@@ -1,7 +1,9 @@
 'use client';
 
+import { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { ViewMode } from '@/types/common';
 
 interface NewsCardProps {
   news: {
@@ -16,11 +18,11 @@ interface NewsCardProps {
     publishDate: string;
   };
   priority?: boolean;
-  viewMode?: 'single' | 'double';
+  viewMode?: ViewMode; // Uses unified ViewMode type: 'list' | 'grid' | 'single' | 'double'
 }
 
 // Senior Level NewsCard Component - Design System Pattern
-export default function NewsCard({ news, priority = false, viewMode = 'double' }: NewsCardProps) {
+const NewsCard = memo(function NewsCard({ news, priority = false, viewMode = 'double' }: NewsCardProps) {
   return (
     <article className="news-card group">
       {/* News Image - Sharp Corners */}
@@ -85,4 +87,6 @@ export default function NewsCard({ news, priority = false, viewMode = 'double' }
       />
     </article>
   );
-}
+});
+
+export default NewsCard;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { ChevronRight } from 'lucide-react';
 
 interface NewsletterProps {
@@ -91,7 +91,7 @@ const newsletterConfig: NewsletterConfig = {
   }
 };
 
-export default function Newsletter({ title, onSubmit }: NewsletterProps) {
+const Newsletter = memo(function Newsletter({ title, onSubmit }: NewsletterProps) {
   const [email, setEmail] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -252,4 +252,6 @@ export default function Newsletter({ title, onSubmit }: NewsletterProps) {
 
     </section>
   );
-}
+});
+
+export default Newsletter;

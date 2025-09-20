@@ -4,11 +4,12 @@ import { useState, useCallback } from 'react';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import BlogCard from './BlogCard';
-import CategoryTags from './CategoryTags';
 import CategoryTabs from './CategoryTabs';
+import CategoryTags from './CategoryTags';
 import Newsletter from './Newsletter';
 import SocialFooter from './SocialFooter';
 import BlogFooter from './BlogFooter';
+import Button, { ButtonShadow } from '@/components/ui/Button';
 import mockData from '../mock-data.json';
 
 interface BlogPost {
@@ -95,7 +96,7 @@ const blogDiscoveryConfig: BlogDiscoveryConfig = {
       rightColumns: "lg:col-span-4"
     },
     typography: {
-      titleSize: "text-[60px] lg:text-[80px]"
+      titleSize: "text-display-md lg:text-display-xl" // migrated from text-[60px] lg:text-[80px]
     }
   },
   accessibility: {
@@ -446,19 +447,21 @@ export default function BlogDiscovery() {
             ))}
           </div>
 
-          {/* Mobile Load More Button */}
+          {/* Mobile Load More Button - Unified Button Component */}
           {filteredPosts.length > blogDiscoveryConfig.loadMore.initialDisplayCount && (
             <div className="flex justify-center mt-12">
               <div className="cta-button-container">
-                <button
+                <Button
+                  variant="primary"
+                  size="md"
                   onClick={handleToggleShowAll}
-                  className="cta-button uppercase tracking-wide bg-white"
+                  className="uppercase tracking-wide"
                   aria-expanded={showAllPosts}
                   aria-controls="blog-posts-feed"
                 >
                   {showAllPosts ? blogDiscoveryConfig.loadMore.buttonText.hide : blogDiscoveryConfig.loadMore.buttonText.show}
-                </button>
-                <div className="cta-button-shadow" aria-hidden="true"></div>
+                </Button>
+                <ButtonShadow />
               </div>
             </div>
           )}
@@ -591,23 +594,25 @@ export default function BlogDiscovery() {
               ))}
             </div>
 
-            {/* Load More Button - Only show when there are more posts to load */}
+            {/* Load More Button - Unified Button Component */}
             {filteredPosts.length > blogDiscoveryConfig.loadMore.initialDisplayCount && (
               <div className="flex justify-center mt-12 lg:mt-16">
                 <div className="cta-button-container">
-                  <button
+                  <Button
+                    variant="primary"
+                    size="md"
                     onClick={handleToggleShowAll}
-                    className="cta-button uppercase tracking-wide bg-white"
+                    className="uppercase tracking-wide"
                     aria-expanded={showAllPosts}
                     aria-controls="blog-posts-feed"
                     aria-describedby="load-more-desc"
                     title={showAllPosts ? blogDiscoveryConfig.loadMore.buttonText.hide : blogDiscoveryConfig.loadMore.buttonText.show}
                   >
                     {showAllPosts ? blogDiscoveryConfig.loadMore.buttonText.hide : blogDiscoveryConfig.loadMore.buttonText.show}
-                  </button>
+                  </Button>
                   
                   {/* Shadow Element */}
-                  <div className="cta-button-shadow" aria-hidden="true"></div>
+                  <ButtonShadow />
                 </div>
               </div>
             )}

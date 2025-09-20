@@ -1,7 +1,9 @@
 'use client';
 
+import { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { ViewMode } from '@/types/common';
 
 interface BlogPost {
   id: number;
@@ -16,8 +18,6 @@ interface BlogPost {
   readMoreText: string;
   slug: string;
 }
-
-type ViewMode = 'list' | 'grid';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -64,7 +64,7 @@ const blogCardConfig: BlogCardConfig = {
   typography: {
     authorName: "font-saira font-normal text-base leading-[1.2] tracking-[0.015em] text-white",
     publishDate: "font-saira font-normal text-base leading-[1.2] tracking-[0.015em] text-ink-500",
-    title: "font-saira-condensed font-bold text-[25px] leading-[1.04] uppercase text-white",
+    title: "font-saira-condensed font-bold text-heading-lg leading-[1.04] uppercase text-white", // migrated from text-[25px]
     readMore: "font-saira font-normal text-base leading-[1.2] tracking-[0.015em] text-white"
   },
   interactions: {
@@ -80,7 +80,7 @@ const blogCardConfig: BlogCardConfig = {
   }
 };
 
-export default function BlogCard({ post, priority = false, viewMode = 'list' }: BlogCardProps) {
+const BlogCard = memo(function BlogCard({ post, priority = false, viewMode = 'list' }: BlogCardProps) {
 
   // Grid view için kompakt layout
   if (viewMode === 'grid') {
@@ -249,4 +249,6 @@ export default function BlogCard({ post, priority = false, viewMode = 'list' }: 
       </article>
     </Link>
   );
-}
+});
+
+export default BlogCard;
