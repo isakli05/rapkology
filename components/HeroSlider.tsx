@@ -134,6 +134,7 @@ export default function HeroSlider() {
                   alt={slide.title}
                   fill
                   priority={slide.id === 1}
+                  sizes="100vw"
                   className="object-cover w-full h-full"
                 />
               </div>
@@ -150,6 +151,7 @@ export default function HeroSlider() {
                     alt={slide.title}
                     fill
                     priority={slide.id === 1}
+                    sizes="100vw"
                     className="object-cover w-full h-full"
                   />
                 </div>
@@ -213,6 +215,7 @@ export default function HeroSlider() {
                 alt="Bottom tear"
                 width={1920}
                 height={100}
+                priority
                 className="w-full h-auto"
               />
             </div>

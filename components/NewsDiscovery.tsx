@@ -216,6 +216,7 @@ export default function NewsDiscovery() {
           src="/icons/diamond.svg"
           alt=""
           fill
+          sizes="100px"
           className="object-contain"
           priority={false}
         />

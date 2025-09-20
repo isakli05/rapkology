@@ -135,6 +135,7 @@ export default function Banner() {
           src={bannerConfig.assets.bannerCloud}
           alt="Background cloud"
           fill
+          sizes="100vw"
           className="object-contain w-full h-full"
           style={{ opacity: bannerConfig.layout.opacity.cloud }}
           priority={false}

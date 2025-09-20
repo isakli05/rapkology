@@ -344,8 +344,8 @@ export default function MonthlyFavorites() {
                               src={favorite.coverImage}
                               alt={`${favorite.artist} - ${favorite.album} kapak görseli`}
                               fill
+                              sizes="(max-width: 768px) 200px, 274px"
                               className="object-cover"
-                              sizes="250px"
                               priority={slideIndex < 3}
                             />
                           </div>
@@ -381,6 +381,7 @@ export default function MonthlyFavorites() {
                               src="/images/swiper_tear.png"
                               alt="Torn mask effect"
                               fill
+                              sizes="(max-width: 768px) 100vw, 50vw"
                               className="object-cover object-bottom"
                             />
                             <div className="favorites-mask-gradient"></div>
@@ -495,6 +496,7 @@ export default function MonthlyFavorites() {
                           src="/images/swiper_tear.png"
                           alt="Torn mask effect"
                           fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
                           className="object-cover object-bottom"
                         />
                         <div className="favorites-mask-gradient"></div>
