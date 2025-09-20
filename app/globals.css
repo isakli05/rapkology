@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Next.js App Router Scroll Optimization */
+html {
+  scroll-behavior: auto !important; /* Optimize for App Router navigation with fixed navbar */
+}
+
 @layer components {
   /* CTA Button with Shadow - Design System Component */
   .cta-button-container {
@@ -710,6 +715,9 @@
     -webkit-backdrop-filter: blur(16px) saturate(200%) brightness(120%) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1) !important;
+    /* Next.js scroll behavior optimization */
+    scroll-behavior: auto !important;
+    contain: layout style !important;
   }
 
   nav[role="banner"][aria-label="Ana navigasyon"].navbar-solid {
@@ -718,6 +726,9 @@
     -webkit-backdrop-filter: none !important;
     border-bottom: none !important;
     box-shadow: none !important;
+    /* Next.js scroll behavior optimization */
+    scroll-behavior: auto !important;
+    contain: layout style !important;
   }
 
   /* Maximum Specificity Responsive Override */

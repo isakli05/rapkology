@@ -157,7 +157,7 @@ export default function Banner() {
             fill
             className="object-cover w-full h-full"
             style={{ objectPosition: bannerConfig.layout.objectPosition.crowd }}
-            priority={true}
+            priority={false}
             sizes="100vw"
           />
         </div>
@@ -184,7 +184,7 @@ export default function Banner() {
                 style={{
                   transform: `scale(${bannerConfig.layout.positioning.rapperLeft.scale})`
                 }}
-                priority={true}
+                priority={false}
                 sizes="(max-width: 1024px) 0vw, (max-width: 1280px) 256px, 320px"
               />
             </div>
@@ -207,7 +207,7 @@ export default function Banner() {
                     width={256}
                     height={128}
                     className="banner-twitch-logo"
-                    priority={true}
+                    priority={false}
                     sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 256px"
                   />
                 </div>
@@ -271,7 +271,7 @@ export default function Banner() {
                   alt="Rapper"
                   fill
                   className="object-contain object-bottom"
-                  priority={true}
+                  priority={false}
                   sizes="240px"
                 />
               </div>
@@ -283,7 +283,7 @@ export default function Banner() {
                   alt="Rapper"
                   fill
                   className="object-contain object-bottom"
-                  priority={true}
+                  priority={false}
                   sizes="240px"
                 />
               </div>
@@ -310,7 +310,7 @@ export default function Banner() {
                 alt="Rapper"
                 fill
                 className="object-contain object-bottom"
-                priority={true}
+                priority={false}
                 sizes="(max-width: 1024px) 0vw, (max-width: 1280px) 256px, 320px"
               />
             </div>
@@ -327,7 +327,7 @@ export default function Banner() {
           width={428}
           height={56}
           className="w-full h-auto"
-          priority={true}
+          priority={false}
           sizes="100vw"
         />
       </div>
@@ -346,7 +346,7 @@ export default function Banner() {
           fill
           className="object-cover w-full h-full"
           style={{ objectPosition: bannerConfig.layout.objectPosition.mask }}
-          priority={true}
+          priority={false}
           sizes="100vw"
         />
       </div>

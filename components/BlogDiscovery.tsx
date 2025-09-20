@@ -441,7 +441,7 @@ export default function BlogDiscovery() {
               <BlogCard
                 key={post.id}
                 post={post}
-                priority={index < 3}
+                priority={false} // BlogDiscovery is below-the-fold, no preload needed
                 viewMode={viewMode}
               />
             ))}
@@ -588,7 +588,7 @@ export default function BlogDiscovery() {
                 <BlogCard
                   key={post.id}
                   post={post}
-                  priority={index < 3}
+                  priority={false} // BlogDiscovery is below-the-fold, no preload needed
                   viewMode={viewMode}
                 />
               ))}

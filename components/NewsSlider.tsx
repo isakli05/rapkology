@@ -65,7 +65,7 @@ const FeaturedNewsCard = ({ news, isActive }: FeaturedNewsCardProps) => (
         src={news.attributes.img}
         alt={news.attributes.title}
         fill
-        priority={isActive}
+        priority={isActive} // Only active news slide gets priority
         className="news-featured-image-responsive"
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 60vw"
       />
@@ -147,7 +147,7 @@ const NewsBackgroundLayers = () => (
         alt=""
         fill
         className="object-contain"
-        priority
+        priority={false}
         aria-hidden="true"
       />
     </div>
@@ -159,7 +159,7 @@ const NewsBackgroundLayers = () => (
         alt=""
         fill
         className="object-cover"
-        priority
+        priority={false}
         aria-hidden="true"
       />
     </div>
@@ -317,7 +317,7 @@ export default function NewsSlider() {
           width={428}
           height={78}
           className="w-full h-auto"
-          priority
+          priority={false}
           aria-hidden="true"
         />
       </div>
@@ -329,7 +329,7 @@ export default function NewsSlider() {
           width={1920}
           height={100}
           className="w-full h-auto"
-          priority
+          priority={false}
           aria-hidden="true"
         />
       </div>

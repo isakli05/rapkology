@@ -134,7 +134,7 @@ export default function HeroSlider() {
                   alt={slide.title}
                   fill
                   priority={slide.id === 1}
-                  sizes="100vw"
+                  sizes="(max-width: 1023px) 100vw, 50vh"
                   className="object-cover w-full h-full"
                 />
               </div>
@@ -151,7 +151,7 @@ export default function HeroSlider() {
                     alt={slide.title}
                     fill
                     priority={slide.id === 1}
-                    sizes="100vw"
+                    sizes={slide.id === 2 ? "(max-width: 1023px) 100vw, 120vw" : "(max-width: 1023px) 100vw, 100vw"}
                     className="object-cover w-full h-full"
                   />
                 </div>

@@ -346,7 +346,7 @@ export default function MonthlyFavorites() {
                               fill
                               sizes="(max-width: 768px) 200px, 274px"
                               className="object-cover"
-                              priority={slideIndex < 3}
+                              priority={false} // MonthlyFavorites is below-the-fold, no preload needed
                             />
                           </div>
 
@@ -462,7 +462,7 @@ export default function MonthlyFavorites() {
                           fill
                           className="object-cover"
                           sizes="calc(100vw - 3rem)"
-                          priority={slideIndex < 3}
+                          priority={false} // MonthlyFavorites is below-the-fold, no preload needed
                         />
                       </div>
 

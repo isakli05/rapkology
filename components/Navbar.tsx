@@ -29,6 +29,8 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-nav ${navbarVariant}`}
       role="banner"
       aria-label="Ana navigasyon"
+      style={{ contain: 'layout style' }}
+      data-scroll-disabled="true"
     >
       <div className="container mx-auto px-4 lg:px-hero-gap-lg xl:px-hero-gap-xl">
         <div className="flex items-center h-16 lg:h-20">

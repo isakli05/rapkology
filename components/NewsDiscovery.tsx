@@ -354,7 +354,7 @@ export default function NewsDiscovery() {
               <NewsCard
                 key={news.id}
                 news={news}
-                priority={index < 4} // First 4 items priority loading
+                priority={false} // NewsDiscovery is below-the-fold, no preload needed
                 viewMode={viewMode}
               />
             ))}
